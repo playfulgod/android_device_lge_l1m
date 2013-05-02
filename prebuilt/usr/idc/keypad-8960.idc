@@ -16,7 +16,7 @@
 # Emulator keyboard configuration file #1.
 #
 
-keyboard.layout = l0-keypad
+keyboard.layout = l1m-keypad
 keyboard.orientationAware = 0
 keyboard.builtIn = 0
 

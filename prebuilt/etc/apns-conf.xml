@@ -64,6 +64,25 @@
 		defaultflag="0"
 		preferapp=""
 />
+
+<apn carrier="MetroPCS RCS APN"
+        mcc="311"
+        mnc="660"
+        apn="ims.rcs.metropcs"
+        user=""
+        password=""
+        server=""
+        proxy=""
+        port=""
+        mmsproxy=""
+        mmsport=""
+        type="rcs"
+        protocol="IP"
+        bearer="0"
+        defaultflag="0"
+        preferapp=""
+/>
+
 <apn carrier="MPCSADMIN"
 		mcc="311" 
 		mnc="660" 
@@ -136,26 +155,6 @@
 		preferapp=""
 />
 
-<!-- LGE_CHANGE_S, [LGE_DATA][ADD_TETHER_PDN] seungmin.jeong@lge.com , 2012-05-05 -->
-<apn carrier="TEST_TETHERING_1"
-		mcc="001"
-		mnc="010"
-		apn="tethering.metropcs"
-		user="" 
-		password=""
-		server="" 		
-		proxy="" 
-		port=""
-		mmsproxy="" 
-		mmsport="" 		
-		type="tethering"
-		protocol="IP"
-		bearer="0"
-		defaultflag="0"
-		preferapp=""
-/>
-<!-- LGE_CHANGE_E, [LGE_DATA][ADD_TETHER_PDN] seungmin.jeong@lge.com , 2012-05-05 -->
-
 <!-- For test equipment_2 -->
 <apn carrier="TESTINTERNET_2"
 		mcc="001"
@@ -210,29 +209,9 @@
 		preferapp=""
 />
 
-<!-- LGE_CHANGE_S, [LGE_DATA][ADD_TETHER_PDN] seungmin.jeong@lge.com , 2012-05-05 -->
-<apn carrier="TEST_TETHERING_2"
-		mcc="001"
-		mnc="01"
-		apn="tethering.metropcs"
-		user="" 
-		password=""
-		server="" 		
-		proxy="" 
-		port=""
-		mmsproxy="" 
-		mmsport="" 		
-		type="tethering"
-		protocol="IP"
-		bearer="0"
-		defaultflag="0"
-		preferapp=""
-/>
-<!-- LGE_CHANGE_E, [LGE_DATA][ADD_TETHER_PDN] seungmin.jeong@lge.com , 2012-05-05 -->
-
 <apn carrier="MetroPCSInternetAPN"
-	    mcc="311"
-	    mnc="66"
+		mcc="311"
+		mnc="66"
 		apn="internet.metropcs"
 		user="" 
 		password=""

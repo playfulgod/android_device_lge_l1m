@@ -30,7 +30,7 @@ TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
 COMMON_GLOBAL_CFLAGS += -DQCOM_HARDWARE -DLGE_MSM8960
 
 # Include path
-TARGET_SPECIFIC_HEADER_PATH := device/lge/l0/include
+TARGET_SPECIFIC_HEADER_PATH := device/lge/l1m/include
 
 # test
 TARGET_NO_BOOTLOADER := true
@@ -38,17 +38,17 @@ TARGET_NO_BOOTLOADER := true
 # Kernel
 BOARD_KERNEL_BASE := 0x80200000
 BOARD_KERNEL_PAGE_SIZE := 2048
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=l0 lpj=676678
+BOARD_KERNEL_CMDLINE := console=ttyHSl1m,115200,n8 androidboot.hardware=l1m lpj=676678
 BOARD_FORCE_RAMDISK_ADDRESS := 0x81500000
 
-TARGET_PREBUILT_KERNEL := device/lge/l0/kernel
-TARGET_KERNEL_CONFIG := l0-perf_defconfig
+TARGET_PREBUILT_KERNEL := device/lge/l1m/kernel
+TARGET_KERNEL_CONFIG := l1m-perf_defconfig
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8960
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
-TARGET_PRODUCT := l0_MPCS_US
+TARGET_PRODUCT := l1m_MPCS_US
 
 # Architecture
 TARGET_CPU_ABI := armeabi-v7a
@@ -74,7 +74,7 @@ USE_OPENGL_RENDERER := true
 TARGET_NO_HW_VSYNC := true
 TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
-BOARD_EGL_CFG := device/lge/l0/prebuilt/lib/egl/egl.cfg
+BOARD_EGL_CFG := device/lge/l1m/prebuilt/lib/egl/egl.cfg
 
 # PMEM compatibility
 BOARD_NEEDS_MEMORYHEAPPMEM := true
@@ -91,7 +91,7 @@ TARGET_PROVIDES_LIBLIGHTS := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
-TARGET_CUSTOM_BLUEDROID := ../../../device/lge/l0/bluetooth/bluetooth.c
+TARGET_CUSTOM_BLUEDROID := ../../../device/lge/l1m/bluetooth/bluetooth.c
 
 # Wifi
 WIFI_DRIVER_MODULE_NAME          := wlan

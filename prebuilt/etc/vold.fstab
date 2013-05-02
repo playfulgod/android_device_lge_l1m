@@ -26,5 +26,4 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # LGE_CHANGE For MTP
-dev_mount sdcard1 /storage/sdcard1 auto /devices/platform/msm_sdcc.3/mmc_host
-#dev_mount sdcard1 /mnt/external_sd auto /devices/platform/msm_sdcc.3/mmc_host
+dev_mount sdcard2 /mnt/sdcard/external_sd auto /devices/platform/msm_sdcc.3/mmc_host

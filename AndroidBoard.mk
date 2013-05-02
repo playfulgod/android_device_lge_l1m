@@ -25,4 +25,4 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 # include the non-open-source counterpart to this file
--include vendor/lge/l0/AndroidBoardVendor.mk
+-include vendor/lge/l1m/AndroidBoardVendor.mk

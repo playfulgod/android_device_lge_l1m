@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2009-2010, Code Aurora Forum. All rights reserved.
+# Copyright (c) 2009-2010, 2012, Code Aurora Forum. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -29,6 +29,7 @@ LOG_TAG="qcom-bt-wlan-coex"
 LOG_NAME="${0}:"
 
 coex_pid=""
+ath_wlan_supported=`getprop wlan.driver.ath`
 
 loge ()
 {
@@ -48,8 +49,23 @@ failed ()
 
 start_coex ()
 {
-  # Must have -o turned on to avoid daemon (otherwise we cannot get pid)
-  /system/bin/btwlancoex -o $opt_flags &
+  case "$ath_wlan_supported" in
+      "1")
+       echo "ATH WLAN Chip ID is enabled"
+       # Must have -d -z -n -v -s -w wlan0 parameters for atheros btfilter.
+       /system/bin/abtfilt -d -z -n -v -q -s -w wlan0 &
+      ;;
+      "0")
+       echo "WCN WLAN Chip ID is enabled"
+       # Must have -o turned on to avoid daemon (otherwise we cannot get pid)
+       /system/bin/btwlancoex -o $opt_flags &
+      ;;
+      *)
+       echo "NO WLAN Chip ID is enabled, so enabling WCN as default"
+       # Must have -d -z -n -v -s -w wlan0 parameters for atheros btfilter.
+       /system/bin/abtfilt -d -z -n -v -q -s -w wlan0 &
+      ;;
+  esac
   coex_pid=$!
   logi "start_coex: pid = $coex_pid"
 }
@@ -75,14 +91,24 @@ done
 # init does SIGTERM on ctl.stop for service
 trap "kill_coex" TERM INT
 
-# Build settings may not produce the coex executable
-if ls /system/bin/btwlancoex
-then
-    start_coex
-    wait $coex_pid
-    logi "Coex stopped"
-else
-    logi "btwlancoex not available"
-fi
+#Selectively start coex module
+target=`getprop ro.board.platform`
+
+case "$target" in
+    "msm8960")
+    logi "btwlancoex/abtfilt is not needed"
+    ;;
+    *)
+    # Build settings may not produce the coex executable
+    if ls /system/bin/btwlancoex || ls /system/bin/abtfilt
+    then
+        start_coex
+        wait $coex_pid
+        logi "Coex stopped"
+    else
+        logi "btwlancoex/abtfilt not available"
+    fi
+    ;;
+esac
 
 exit 0

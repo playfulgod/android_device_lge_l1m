@@ -1,7 +1,7 @@
 #/bin/sh
 
 VENDOR=lge
-DEVICE=l0
+DEVICE=l1m
 
 UPDATE_PACKAGE=$1
 

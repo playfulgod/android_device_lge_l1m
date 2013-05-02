@@ -1,4 +1,4 @@
-**Work in progress for the LG Motion 4G.
+**Work in progress for the LG Spirit 4G.
 
 **Thanks to:
 
@@ -40,7 +40,7 @@ Now initialized the repository and pull the source (with my repos attached):
 
 Note: Depending on your connection, this might take awhile.
 
-Getting my repos for the LG Motion (l0)
+Getting my repos for the LG Motion (l1m)
 	
 	$ cd ~/android/system/device/
 
@@ -48,7 +48,7 @@ Getting my repos for the LG Motion (l0)
 
 	$ cd lge
 
-	$ git clone https://github.com/playfulgod/android_device_lge_l0.git -b jellybean l0
+	$ git clone https://github.com/playfulgod/android_device_lge_l1m.git -b jellybean l1m
 
 
 Getting kernel source
@@ -64,7 +64,7 @@ Then cd to the kernel directory (custom kernels unable to be used at this time d
 
 	$ cd ~/android/system/kernel/lge
 
-	$ git clone https://github.com/playfulgod/kernel_lge_l0.git l0
+	$ git clone https://github.com/playfulgod/kernel_lge_l1m.git l1m
 
 Extract necessary binaries and proprietary files 
 ------------------------------------------------
@@ -73,11 +73,11 @@ We will need to reuse some proprietary files from the stock ROM:
 
     $ cd
     
-    $ cd ~/android/system/device/lge/l0
+    $ cd ~/android/system/device/lge/l1m
     
     $ ./extract-files.sh
 
-or place a copy of a stock ROM zip or previous CM build in device/lge/l0
+or place a copy of a stock ROM zip or previous CM build in device/lge/l1m
 
 	$ ./unzip-files.sh name-of-zip.zip
 
@@ -87,7 +87,7 @@ Once thats done you can start compiling.
 
 Follow the aosp instructions on setting up the build environment. - http://source.android.com/source/download.html
 
-When the environment is setup, we need to grab a copy of Koush's ROM Manager and the Term.apk. This is necessary to build CM10.
+When the environment is setup, we need to grab a copy of Term.apk. This is necessary to build CM10.
 
     $ cd ~/android/system/vendor/cm
 
@@ -97,14 +97,14 @@ Now, we build (system being your work directory):
 
     $ cd ~/android/system
 
-To build for the LG Motion 4G:
+To build for the LG Spirit 4G:
     
-    $ . build/envsetup.sh && brunch l0
+    $ . build/envsetup.sh && brunch l1m
 
 
 Installing CM10
 ---------------
-If the build was successful, you can now take the update zip found in out/target/product/l0/ and flash using a custom recovery. Make sure to grab the latest Gapps to complete the experience.
+If the build was successful, you can now take the update zip found in out/target/product/l1m/ and flash using a custom recovery. Make sure to grab the latest Gapps to complete the experience.
 
 Note: Currently the produced zip will need to be edited and repack with the stock boot.img or the boot.img removed and the updater-script edited accordingly.
 

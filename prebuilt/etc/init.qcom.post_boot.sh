@@ -49,9 +49,24 @@ case "$target" in
 esac
 
 case "$target" in
-     "msm7201a_ffa" | "msm7201a_surf" | "msm7627_ffa" | "msm7627_6x" | "msm7627_surf" | "msm7630_surf" | "msm7630_1x" | "msm7630_fusion" | "msm7627a" )
+     "msm7201a_ffa" | "msm7201a_surf" | "msm7627_ffa" | "msm7627_6x" | "msm7627_surf" | "msm7630_surf" | "msm7630_1x" | "msm7630_fusion")
         echo 245760 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
         ;;
+
+     "msm7627a")
+        # start with default minimum for this family.
+        echo 245760 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq;
+        available_frequencies=`cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_available_frequencies`
+        for freq in $available_frequencies
+           do
+              # Set this freq as minimum if available.
+              if [[ $freq = "196608" ]]; then
+                 echo 196608 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq;
+              fi
+           done
+        ;;
+
+
 esac
 
 case "$target" in
@@ -69,23 +84,15 @@ case "$target" in
 	 echo 1 > /sys/module/pm_8x60/modes/cpu1/power_collapse/idle_enabled
 	 echo 1 > /sys/module/pm_8x60/modes/cpu0/standalone_power_collapse/idle_enabled
 	 echo 1 > /sys/module/pm_8x60/modes/cpu1/standalone_power_collapse/idle_enabled
-	 echo 1 > /sys/module/pm_8660/modes/cpu0/power_collapse/suspend_enabled
-	 echo 1 > /sys/module/pm_8660/modes/cpu1/power_collapse/suspend_enabled
-	 echo 1 > /sys/module/pm_8660/modes/cpu0/standalone_power_collapse/suspend_enabled
-	 echo 1 > /sys/module/pm_8660/modes/cpu1/standalone_power_collapse/suspend_enabled
-	 echo 1 > /sys/module/pm_8660/modes/cpu0/power_collapse/idle_enabled
-	 echo 1 > /sys/module/pm_8660/modes/cpu1/power_collapse/idle_enabled
-	 echo 1 > /sys/module/pm_8660/modes/cpu0/standalone_power_collapse/idle_enabled
-	 echo 1 > /sys/module/pm_8660/modes/cpu1/standalone_power_collapse/idle_enabled
 	 echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
 	 echo "ondemand" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
 	 echo 50000 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
 	 echo 90 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
 	 echo 1 > /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
 	 echo 4 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
+         echo 10 > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
 	 echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 	 echo 384000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
-	 chown system /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
 	 chown system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 	 chown system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
 	 chown system /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
@@ -99,41 +106,57 @@ esac
 
 case "$target" in
     "msm8960")
-     echo 1 > /sys/module/rpm_resources/enable_low_power/L2_cache
-     echo 1 > /sys/module/rpm_resources/enable_low_power/pxo
-     echo 1 > /sys/module/rpm_resources/enable_low_power/vdd_dig
-     echo 1 > /sys/module/rpm_resources/enable_low_power/vdd_mem
-     echo 0 > /sys/module/pm_8x60/modes/cpu0/standalone_power_collapse/suspend_enabled
-     echo 0 > /sys/module/pm_8x60/modes/cpu1/standalone_power_collapse/suspend_enabled
-     echo 0 > /sys/module/pm_8x60/modes/cpu0/standalone_power_collapse/idle_enabled
-     echo 0 > /sys/module/pm_8x60/modes/cpu1/standalone_power_collapse/idle_enabled
-     echo 1 > /sys/module/pm_8x60/modes/cpu0/power_collapse/suspend_enabled
-     echo 1 > /sys/module/pm_8x60/modes/cpu1/power_collapse/suspend_enabled
-     echo 1 > /sys/module/pm_8x60/modes/cpu0/power_collapse/idle_enabled
-     echo 1 > /sys/module/pm_8x60/modes/cpu1/power_collapse/idle_enabled
-     echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
-     echo "ondemand" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
-     echo 90 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
-     echo 50000 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
-     echo 1 > /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
-     echo 4 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
-     echo 10 > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
-     echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-     echo 384000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
-     chown system /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
-     chown system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-     chown system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
-     chown system /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
-     chown system /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
-     chown root.system /sys/devices/system/cpu/mfreq
-     chmod 220 /sys/devices/system/cpu/mfreq
-     chown root.system /sys/devices/system/cpu/cpu1/online
-     chmod 664 /sys/devices/system/cpu/cpu1/online
-        ;;
+         echo 1 > /sys/module/rpm_resources/enable_low_power/L2_cache
+         echo 1 > /sys/module/rpm_resources/enable_low_power/pxo
+         echo 1 > /sys/module/rpm_resources/enable_low_power/vdd_dig
+         echo 1 > /sys/module/rpm_resources/enable_low_power/vdd_mem
+         echo 1 > /sys/module/pm_8x60/modes/cpu0/power_collapse/suspend_enabled
+         echo 1 > /sys/module/pm_8x60/modes/cpu1/power_collapse/suspend_enabled
+         echo 1 > /sys/module/pm_8x60/modes/cpu2/power_collapse/suspend_enabled
+         echo 1 > /sys/module/pm_8x60/modes/cpu3/power_collapse/suspend_enabled
+         echo 1 > /sys/module/pm_8x60/modes/cpu0/standalone_power_collapse/suspend_enabled
+         echo 1 > /sys/module/pm_8x60/modes/cpu1/standalone_power_collapse/suspend_enabled
+         echo 1 > /sys/module/pm_8x60/modes/cpu2/standalone_power_collapse/suspend_enabled
+         echo 1 > /sys/module/pm_8x60/modes/cpu3/standalone_power_collapse/suspend_enabled
+         echo 1 > /sys/module/pm_8x60/modes/cpu0/standalone_power_collapse/idle_enabled
+         echo 1 > /sys/module/pm_8x60/modes/cpu1/standalone_power_collapse/idle_enabled
+         echo 1 > /sys/module/pm_8x60/modes/cpu2/standalone_power_collapse/idle_enabled
+         echo 1 > /sys/module/pm_8x60/modes/cpu3/standalone_power_collapse/idle_enabled
+         echo 1 > /sys/module/pm_8x60/modes/cpu0/power_collapse/idle_enabled
+         echo "ondemand" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+         echo "ondemand" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+         echo "ondemand" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+         echo "ondemand" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
+         echo 90 > /sys/devices/system/cpu/cpufreq/ondemand/up_threshold
+         echo 1 > /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
+         echo 4 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
+         echo 10 > /sys/devices/system/cpu/cpufreq/ondemand/down_differential
+         echo 384000 > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+         echo 384000 > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
+         echo 384000 > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
+         echo 384000 > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq
+         chown system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+         chown system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+         chown system /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+         chown system /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
+         chown system /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
+         chown system /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
+         chown system /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq
+         chown system /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq
+         chown root.system /sys/devices/system/cpu/mfreq
+         chmod 220 /sys/devices/system/cpu/mfreq
+         chown root.system /sys/devices/system/cpu/cpu1/online
+         chown root.system /sys/devices/system/cpu/cpu2/online
+         chown root.system /sys/devices/system/cpu/cpu3/online
+         chmod 664 /sys/devices/system/cpu/cpu1/online
+         chmod 664 /sys/devices/system/cpu/cpu2/online
+         chmod 664 /sys/devices/system/cpu/cpu3/online
+         start qosmgrd
+         ;;
 esac
 
 case "$target" in
-    "msm7627_ffa" | "msm7627_surf" | "msm7627a" | "msm7627_6x")
+    "msm7627_ffa" | "msm7627_surf" | "msm7627_6x")
         echo 25000 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
         ;;
 esac
@@ -151,6 +174,8 @@ case "$target" in
 esac
 
 chown system /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
+chown system /sys/devices/system/cpu/cpufreq/ondemand/sampling_down_factor
+chown system /sys/devices/system/cpu/cpufreq/ondemand/io_is_busy
 
 emmc_boot=`getprop ro.emmc`
 case "$emmc_boot"
@@ -162,16 +187,41 @@ case "$emmc_boot"
     ;;
 esac
 
-
 # Post-setup services
 case "$target" in
     "msm8660" | "msm8960")
-	    # enable ETB at start
-		echo "1" > /dev/msm_ptm
-
-        # enable binder debug_mask for debugging
-        echo 7 > /sys/module/binder/parameters/debug_mask
-
         start mpdecision
     ;;
+    "msm7627a")
+        soc_id=`cat /sys/devices/system/soc/soc0/id`
+        case "$soc_id" in
+            "127" | "128" | "129")
+                start mpdecision
+        ;;
+        esac
+    ;;
 esac
+
+# Enable Power modes and set the CPU Freq Sampling rates
+case "$target" in
+     "msm7627a")
+	echo 1 > /sys/module/pm2/modes/cpu0/standalone_power_collapse/idle_enabled
+	echo 1 > /sys/module/pm2/modes/cpu1/standalone_power_collapse/idle_enabled
+	echo 1 > /sys/module/pm2/modes/cpu0/standalone_power_collapse/suspend_enabled
+	echo 1 > /sys/module/pm2/modes/cpu1/standalone_power_collapse/suspend_enabled
+	#SuspendPC:
+	echo 1 > /sys/module/pm2/modes/cpu0/power_collapse/suspend_enabled
+	#IdlePC:
+	echo 1 > /sys/module/pm2/modes/cpu0/power_collapse/idle_enabled
+	echo 25000 > /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate
+    ;;
+esac
+
+# Change adj level and min_free_kbytes setting for lowmemory killer to kick in
+case "$target" in
+     "msm7627a")
+	echo 0,1,2,4,9,12 > /sys/module/lowmemorykiller/parameters/adj
+	echo 5120 > /proc/sys/vm/min_free_kbytes
+     ;;
+esac
+

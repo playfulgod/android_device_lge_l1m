@@ -1,7 +1,7 @@
 #!/bin/sh
 
 VENDOR=lge
-DEVICE=l0
+DEVICE=l1m
 OUTDIR=vendor/$VENDOR/$DEVICE
 MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
 
@@ -25,6 +25,7 @@ MAKEFILE=../../../$OUTDIR/$DEVICE-vendor-blobs.mk
 # Prebuilt libraries that are needed to build open-source libraries
 PRODUCT_COPY_FILES := \\
     $OUTDIR/proprietary/lib/libv8.so:obj/lib/libv8.so \\
+    $OUTDIR/proprietary/lib/libacdbloader.so:obj/lib/libacdbloader.so \\
 
 PRODUCT_COPY_FILES += \\
 EOF

@@ -1,4 +1,4 @@
-# proprietary files for MS770
+# proprietary files for MS870
 #  WIP
 
 # Prebuilt binaries needed
@@ -8,7 +8,6 @@ bin/bridgemgrd
 bin/btnvtool
 bin/cnd
 bin/ds_fmc_appd
-bin/ftm_ptt
 bin/gsiff_daemon
 bin/hci_qcomm_init
 bin/hdmid
@@ -43,40 +42,19 @@ lib/egl/libGLESv2S3D_adreno200.so
 lib/egl/libq3dtools_adreno200.so
 lib/hw/camera.msm8960.so
 lib/hw/gps.default.so
-lib/hw/nfc.msm8960.so
 lib/hw/sensors.msm8960.so
 
 # Prebuilt libraries that are needed
 lib/libacdbloader.so
 lib/libv8.so
-lib/libami306.so
 lib/libaudcal.so
 lib/libaudioalsa.so
 lib/libc2d2_z180.so
 lib/libC2D2.so
 lib/libcamera_client.so
-lib/libchromatix_imx074_default_video.so
-lib/libchromatix_imx074_preview.so
-lib/libchromatix_imx074_video_hd.so
-lib/libchromatix_imx074_zsl.so
-lib/libchromatix_imx091_default_video.so
-lib/libchromatix_imx091_preview.so
-lib/libchromatix_imx091_video_hd.so
-lib/libchromatix_imx111_default_video.so
-lib/libchromatix_imx111_preview.so
-lib/libchromatix_imx111_zsl.so
 lib/libchromatix_imx119_default_video.so
 lib/libchromatix_imx119_preview.so
 lib/libchromatix_imx119_vt.so
-lib/libchromatix_ov2720_default_video.so
-lib/libchromatix_ov2720_preview.so
-lib/libchromatix_s5k3l1yx_default_video.so
-lib/libchromatix_s5k3l1yx_hfr_60fps.so
-lib/libchromatix_s5k3l1yx_hfr_90fps.so
-lib/libchromatix_s5k3l1yx_hfr_120fps.so
-lib/libchromatix_s5k3l1yx_preview.so
-lib/libchromatix_s5k3l1yx_video_hd.so
-lib/libchromatix_s5k3l1yx_zsl.so
 lib/libchromatix_s5k4e1_default_video.so
 lib/libchromatix_s5k4e1_preview.so
 lib/libchromatix_s5k4e1_zsl.so
@@ -110,7 +88,7 @@ lib/libloc_ext.so
 lib/liblog.so
 lib/libmmcamera_faceproc.so
 lib/libmmcamera_frameproc.so
-lib/libmmcamera_statsproc30.so
+lib/libmmcamera_statsproc31.so
 lib/libmm-color-convertor.so
 lib/libmmipl.so
 lib/libmmjpeg.so
@@ -122,7 +100,6 @@ lib/libmmparser.so
 lib/libmmstillomx.so
 lib/libnetmgr.so
 lib/liboemcamera.so
-lib/libOlaFaceDetector.so
 lib/libOlaLGECameraJNI.so
 lib/libOmxAacDec.so
 lib/libOmxWmaDec.so
@@ -150,32 +127,11 @@ lib/libsensor_test.so
 lib/libsensor_user_cal.so
 lib/libtcpfinaggr.so
 lib/libxml.so
-vendor/firmware/libpn544_fw.so
 lib/hw/lights.msm8960.so
 
 # Sound firmware
-etc/snd_soc_msm/DL_REC
-etc/snd_soc_msm/DL_REC_2x
-etc/snd_soc_msm/FM_A2DP_REC
-etc/snd_soc_msm/FM_A2DP_REC_2x
-etc/snd_soc_msm/FM_Digital_Radio
-etc/snd_soc_msm/FM_Digital_Radio_2x
-etc/snd_soc_msm/FM_REC
-etc/snd_soc_msm/FM_REC_2x
-etc/snd_soc_msm/HiFi
-etc/snd_soc_msm/HiFi_2x
-etc/snd_soc_msm/HiFi_Low_Power
-etc/snd_soc_msm/HiFi_Low_Power_2x
-etc/snd_soc_msm/HiFi_Rec
-etc/snd_soc_msm/HiFi_Rec_2x
 etc/snd_soc_msm/snd_soc_msm
 etc/snd_soc_msm/snd_soc_msm_2x
-etc/snd_soc_msm/UL_DL_REC
-etc/snd_soc_msm/UL_DL_REC_2x
-etc/snd_soc_msm/Voice_Call
-etc/snd_soc_msm/Voice_Call_2x
-etc/snd_soc_msm/Voice_Call_IP
-etc/snd_soc_msm/Voice_Call_IP_2x
 
 # Firmware
 etc/firmware/a225p5_pm4.fw
