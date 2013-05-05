@@ -1,9 +1,0 @@
-/dev/oncrpc/*             0666   root       qcom_oncrpc
-# LGE_BROADCAST_TDMB
-/dev/broadcast0           0666  media        media
-
-# LGE_COMPRESSED_PATH
-/dev/ioctl_hdmi	      0666  root        root
-
-# secure clock
-/dev/secclk               0666  system       system
