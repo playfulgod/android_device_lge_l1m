@@ -49,6 +49,7 @@ lib/libacdbloader.so
 lib/libv8.so
 lib/libaudcal.so
 lib/libaudioalsa.so
+lib/libbson.so
 lib/libc2d2_z180.so
 lib/libC2D2.so
 lib/libcamera_client.so
@@ -58,8 +59,12 @@ lib/libchromatix_imx119_vt.so
 lib/libchromatix_s5k4e1_default_video.so
 lib/libchromatix_s5k4e1_preview.so
 lib/libchromatix_s5k4e1_zsl.so
+lib/libcnefeatureconfig.so
+lib/libcneqmiutils.so
+lib/libcneutils.so
 lib/libCommandSvc.so
 lib/libconfigdb.so
+lib/libcurl.so
 lib/libdiag.so
 lib/libDivxDrm.so
 lib/libdl.so
@@ -79,13 +84,18 @@ lib/libidl.so
 lib/libimage-jpeg-dec-omx-comp.so
 lib/libimage-jpeg-enc-omx-comp.so
 lib/libimage-omx-common.so
+lib/liblgdrm.so
 lib/liblgftmitem.so
+lib/liblgsecclk.so
 lib/libllvm-a3xx.so
 lib/libloc_adapter.so
 lib/libloc_api_v02.so
 lib/libloc_eng.so
 lib/libloc_ext.so
 lib/liblog.so
+lib/libmercury.so
+lib/libmm-abl.so
+lib/libmm-abl-oem.so
 lib/libmmcamera_faceproc.so
 lib/libmmcamera_frameproc.so
 lib/libmmcamera_statsproc31.so
@@ -106,14 +116,18 @@ lib/libOmxWmaDec.so
 lib/libOpenCL.so
 lib/libOpenVG.so
 lib/libqc-opt.so
+lib/libqcci_legacy.so
 lib/libqdi.so
 lib/libqdp.so
 lib/libqmi.so
 lib/libqmi_cci.so
+lib/libqmi_client_qmux.so
 lib/libqmi_common_so.so
 lib/libqmi_csi.so
 lib/libqmi_encdec.so
 lib/libqmiservices.so
+lib/libquipc_os_api.so
+lib/libquipc_ulp_adapter.so
 lib/libQSEEComAPI.so
 lib/libreference-ril.so
 lib/libril.so
@@ -126,12 +140,20 @@ lib/libsensor_reg.so
 lib/libsensor_test.so
 lib/libsensor_user_cal.so
 lib/libtcpfinaggr.so
+lib/libwifiscanner.so
+lib/libwvprovision.so
 lib/libxml.so
 lib/hw/lights.msm8960.so
 
 # Sound firmware
 etc/snd_soc_msm/snd_soc_msm
 etc/snd_soc_msm/snd_soc_msm_2x
+
+# Wifi (BCM) firmware
+etc/firmware/fw_bcmdhd.bin
+etc/firmware/fw_bcmdhd_apsta.bin
+etc/firmware/fw_bcmdhd_mfg.bin
+etc/firmware/fw_bcmdhd_p2p.bin
 
 # Firmware
 etc/firmware/a225p5_pm4.fw

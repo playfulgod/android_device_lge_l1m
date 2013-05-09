@@ -38,7 +38,7 @@ TARGET_NO_BOOTLOADER := true
 # Kernel
 BOARD_KERNEL_BASE := 0x81250000
 BOARD_KERNEL_PAGE_SIZE := 2048
-BOARD_KERNEL_CMDLINE := console=ttyHSl1m,115200,n8 androidboot.hardware=l1m
+BOARD_KERNEL_CMDLINE := console=ttyHSl1m,115200,n8 androidboot.hardware=l1m lpj=67668
 BOARD_FORCE_RAMDISK_ADDRESS := 0x810cc000
 
 TARGET_PREBUILT_KERNEL := device/lge/l1m/kernel
@@ -95,14 +95,15 @@ TARGET_CUSTOM_BLUEDROID := ../../../device/lge/l1m/bluetooth/bluetooth.c
 
 # Wifi
 WIFI_DRIVER_MODULE_NAME          := wlan
-WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wlan.ko"
+WIFI_BAND                        := 802_11_ABG
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
 BOARD_HOSTAPD_DRIVER             := NL80211
-BOARD_WLAN_DEVICE                := qcwcn
-WIFI_DRIVER_FW_PATH_STA          := "sta"
-WIFI_DRIVER_FW_PATH_AP           := "ap"
-WIFI_DRIVER_FW_PATH_P2P          := "p2p"
+BOARD_WLAN_DEVICE                := bcmdhd
+WIFI_DRIVER_FW_PATH_STA          := "/system/etc/firmware/fw_bcmdhd.bin"
+WIFI_DRIVER_FW_PATH_AP           := "/system/etc/firmware/fw_bcmdhd_apsta.bin"
+WIFI_DRIVER_FW_PATH_P2P          := "/system/etc/firmware/fw_bcmdhd_p2p.bin"
+WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/bcmdhd/parameters/firmware_path"
 
 # Filesystem
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -122,3 +123,7 @@ TARGET_BOOTANIMATION_PRELOAD := true
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun0/file
+
+# Releasetools
+TARGET_PROVIDES_RELEASETOOLS := true
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/lge/l1m/releasetools/l1m_ota_from_target_files

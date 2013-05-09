@@ -19,28 +19,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
-# NFC
-# Commands to migrate prefs from com.android.nfc3 to com.android.nfc
-PRODUCT_COPY_FILES += $(call add-to-product-copy-files-if-exists,\
-packages/apps/Nfc/migrate_nfc.txt:system/etc/updatecmds/migrate_nfc.txt)
-
-# NFC EXTRAS add-on API
-PRODUCT_PACKAGES += \
-    com.android.nfc_extras
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml
-
-# NFCEE access control
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/etc/nfcee_access.xml:system/etc/nfcee_access.xml
-
-PRODUCT_PACKAGES += \
-    nfc.msm8960 \
-    libnfc \
-    libnfc_jni \
-    Nfc \
-    Tag
-
 # OMX
 PRODUCT_PACKAGES += \
     libdivxdrmdecrypt \
@@ -114,13 +92,13 @@ PRODUCT_COPY_FILES += \
 
 # 2nd-init
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/xbin/2nd-init:/system/xbin/2nd-init \
-    $(LOCAL_PATH)/prebuilt/xbin/cm10.sh:/system/xbin/cm10.sh \
-    $(LOCAL_PATH)/prebuilt/xbin/cm10.tar:/system/xbin/cm10.tar \
-    $(LOCAL_PATH)/prebuilt/xbin/mksh2:/system/xbin/mksh2 \
-    $(LOCAL_PATH)/prebuilt/xbin/recovery.sh:/system/xbin/recovery.sh \
-    $(LOCAL_PATH)/prebuilt/xbin/recovery.tar:/system/xbin/recovery.tar \
-    $(LOCAL_PATH)/prebuilt/xbin/taskset:/system/xbin/taskset
+    $(LOCAL_PATH)/2nd-init/2nd-init:/system/xbin/2nd-init \
+    $(LOCAL_PATH)/2nd-init/cm10.sh:/system/xbin/cm10.sh \
+    $(LOCAL_PATH)/2nd-init/cm10.tar:/system/xbin/cm10.tar \
+    $(LOCAL_PATH)/2nd-init/mksh2:/system/xbin/mksh2 \
+    $(LOCAL_PATH)/2nd-init/recovery.sh:/system/xbin/recovery.sh \
+    $(LOCAL_PATH)/2nd-init/recovery.tar:/system/xbin/recovery.tar \
+    $(LOCAL_PATH)/2nd-init/taskset:/system/xbin/taskset
 
 # Permissions
 PRODUCT_COPY_FILES += \
