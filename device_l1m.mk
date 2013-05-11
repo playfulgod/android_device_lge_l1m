@@ -30,10 +30,6 @@ PRODUCT_PACKAGES += \
     libOmxAmrEnc \
     libstagefrighthw
 
-# hostapd
-PRODUCT_PACKAGES += \
-    hostapd
-
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
@@ -53,6 +49,11 @@ PRODUCT_PACKAGES += \
 # Wifi
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/wifi/wpa_supplicant.conf:/system/etc/wifi/wpa_supplicant.conf
+
+PRODUCT_PACKAGES += \
+    hostapd \
+	wpa_supplicent \
+	wpa_cli
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -183,7 +184,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # We have enough space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
-
 
 # Device uses high-density artwork where available
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
