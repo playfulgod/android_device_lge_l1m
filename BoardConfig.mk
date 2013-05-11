@@ -41,7 +41,12 @@ BOARD_KERNEL_PAGE_SIZE := 2048
 BOARD_KERNEL_CMDLINE := console=ttyHSl1m,115200,n8 androidboot.hardware=l1m lpj=67668
 BOARD_FORCE_RAMDISK_ADDRESS := 0x810cc000
 
-TARGET_PREBUILT_KERNEL := device/lge/l1m/kernel
+TARGET_PREBUILT_KERNEL := device/lge/l0/kernel
+LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_KERNEL):kernel
+
 TARGET_KERNEL_CONFIG := l1m-perf_defconfig
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
 
@@ -98,7 +103,9 @@ WIFI_DRIVER_MODULE_NAME          := wlan
 WIFI_BAND                        := 802_11_ABG
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
 BOARD_HOSTAPD_DRIVER             := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_bcmdhd
 BOARD_WLAN_DEVICE                := bcmdhd
 WIFI_DRIVER_FW_PATH_STA          := "/system/etc/firmware/fw_bcmdhd.bin"
 WIFI_DRIVER_FW_PATH_AP           := "/system/etc/firmware/fw_bcmdhd_apsta.bin"
