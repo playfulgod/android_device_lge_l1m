@@ -1,10 +1,16 @@
 **Work in progress for the LG Spirit 4G.
 
 **Thanks to:
+	
+	985 PatKicK for his repo(s) in which this is forked from.
 
-    hroark13 for posting his device repo.
+    hroark13 for posting his device tree.
 
 	BobZhome for his time & work on this project.
+
+	Dm47021 for his assistance.
+
+	ikarosdev for his assistance. 
 
 
 
@@ -34,7 +40,7 @@ Now initialized the repository and pull the source (with my repos attached):
 
     $ cd ~/android/system/
     
-    $ repo init -u git://github.com/CyanogenMod/android.git -b jellybean
+    $ repo init -u git://github.com/CyanogenMod/android.git -b cm-10.1
     
     $ repo sync
 
@@ -48,11 +54,11 @@ Getting my repos for the LG Motion (l1m)
 
 	$ cd lge
 
-	$ git clone https://github.com/playfulgod/android_device_lge_l1m.git -b jellybean l1m
+	$ git clone https://github.com/playfulgod/android_device_lge_l1m.git -b jcm-10.1 l1m
 
 
-Getting kernel source
----------------------
+Getting kernel source (OPTIONAL)
+--------------------------------
 
 Then cd to the kernel directory (custom kernels unable to be used at this time due to locked bootloader, but setup for them just in case):
 
