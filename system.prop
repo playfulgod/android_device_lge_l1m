@@ -2,8 +2,9 @@
 # system.prop for surf
 #
 
-wlan.chip.vendor=qcom
-wlan.chip.version=wcnss
+wlan.chip.vendor=brcm
+wlan.chip.version=bcm4334
+wifi.supplicant_scan_interval=90
 wifi.interface=wlan0
 wlan.driver.status=ok
 
@@ -15,7 +16,6 @@ com.qc.hardware=true
 # RIL properties
 rild.libpath=/system/lib/libril-qc-qmi-1.so
 ro.telephony.ril_class=LGEQualcommUiccRIL
-telephony.lteOnCdmaDevice=1
 
 #mtp settings
 persist.sys.usb.config=mtp,adb

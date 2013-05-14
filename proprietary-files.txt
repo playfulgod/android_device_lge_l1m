@@ -99,6 +99,11 @@ lib/libmm-abl-oem.so
 lib/libmmcamera_faceproc.so
 lib/libmmcamera_frameproc.so
 lib/libmmcamera_statsproc31.so
+lib/libmmcamera_hdr_lib.so
+lib/libmmcamera_image_stab.so
+lib/libmmcamera_interface2.so
+lib/libmmcamera_statsproc31.so
+lib/libmmcamera_wavelet_lib.so
 lib/libmm-color-convertor.so
 lib/libmmipl.so
 lib/libmmjpeg.so
@@ -145,7 +150,38 @@ lib/libwvprovision.so
 lib/libxml.so
 lib/hw/lights.msm8960.so
 
+# GPS
+lib/hw/gps.default.so
+lib/libgps.so
+lib/libgps.utils.so
+lib/libloc_adapter.so
+lib/libloc_api_v02.so
+lib/libloc_eng.so
+lib/libloc_ext.so
+
 # Sound firmware
+etc/snd_soc_msm/DL_REC
+etc/snd_soc_msm/DL_REC_2x
+etc/snd_soc_msm/FM_A2DP_REC
+etc/snd_soc_msm/FM_A2DP_REC_2x
+etc/snd_soc_msm/FM_Digital_Radio
+etc/snd_soc_msm/FM_Digital_Radio_2x
+etc/snd_soc_msm/FM_REC
+etc/snd_soc_msm/FM_REC_2x
+etc/snd_soc_msm/HiFi
+etc/snd_soc_msm/HiFi_2x
+etc/snd_soc_msm/HiFi_Low_Power
+etc/snd_soc_msm/HiFi_Low_Power_2x
+etc/snd_soc_msm/HiFi_Rec
+etc/snd_soc_msm/HiFi_Rec_2x
+etc/snd_soc_msm/snd_soc_msm
+etc/snd_soc_msm/snd_soc_msm_2x
+etc/snd_soc_msm/UL_DL_REC
+etc/snd_soc_msm/UL_DL_REC_2x
+etc/snd_soc_msm/Voice_Call
+etc/snd_soc_msm/Voice_Call_2x
+etc/snd_soc_msm/Voice_Call_IP
+etc/snd_soc_msm/Voice_Call_IP_2x
 etc/snd_soc_msm/snd_soc_msm
 etc/snd_soc_msm/snd_soc_msm_2x
 
@@ -154,6 +190,15 @@ etc/firmware/fw_bcmdhd.bin
 etc/firmware/fw_bcmdhd_apsta.bin
 etc/firmware/fw_bcmdhd_mfg.bin
 etc/firmware/fw_bcmdhd_p2p.bin
+
+# Radio
+lib/libnetmgr.so
+lib/libqc-opt.so
+lib/libril-qcril-hook-oem.so
+lib/libril.so
+lib/libqcci_legacy.so
+lib/libqmi_client_qmux.so
+lib/libqmi_csvt_srvc.so
 
 # Firmware
 etc/firmware/a225p5_pm4.fw
@@ -169,3 +214,8 @@ etc/firmware/vidc.b03
 etc/firmware/vidc.mdt
 etc/firmware/vidc_1080p.fw
 etc/firmware/vidcfw.elf
+
+# Bluetooth
+bin/BCM4334B0_002.001.013.0636.0688.hcd
+lib/liblgftmitem.so
+

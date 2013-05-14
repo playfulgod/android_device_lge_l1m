@@ -119,6 +119,8 @@ symlink("toolbox", "/system/bin/cat", "/system/bin/chmod",
         "/system/bin/top", "/system/bin/touch", "/system/bin/umount",
         "/system/bin/uptime", "/system/bin/vmstat", "/system/bin/watchprops",
         "/system/bin/wipe");
+symlink("/system/etc/firmware/wcds9310/wcd9310_anc.bin, /data/misc/audio/wcd9310_anc.bin");
+symlink("/system/etc/firmware/wcd9310/wcd9310_mbhc.bin, /data/misc.audio/wcd9310_mbhc.bin");
 set_perm_recursive(0, 0, 0755, 0644, "/system");
 set_perm_recursive(0, 0, 0755, 0755, "/system/addon.d");
 set_perm_recursive(0, 2000, 0755, 0755, "/system/bin");
@@ -158,8 +160,9 @@ ui_print("::        FINISHED        ::");
 ui_print("::                        ::");
 ui_print("::::::::::::::::::::::::::::");
 ui_print("");
-ui_print("DO A FACTORY RESET");
+ui_print("     DO A FACTORY RESET");
 ui_print("");
 ui_print("");
 ui_print("DONT FORGET TO INSTALL GAPPS");
 ui_print("");
+
