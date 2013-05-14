@@ -12,6 +12,8 @@
 
 	ikarosdev for his assistance. 
 
+	aboatright3605 for debugging and issue tracking.
+
 
 
 HOW-TO BUILD:
