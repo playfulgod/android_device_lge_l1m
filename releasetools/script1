@@ -143,7 +143,6 @@ set_perm(0, 0, 0644, "/system/etc/init.qcom.modem_links.sh");
 set_perm(0, 0, 0644, "/system/etc/init.qcom.post_boot.sh");
 set_perm(0, 1000, 0755, "/system/etc/init.qcom.sdio.sh");
 set_perm(0, 0, 0644, "/system/etc/init.qcom.wifi.sh");
-set_perm(0, 0, 0644, "/system/etc/init.wlan-on-off.sh");
 set_perm_recursive(0, 0, 0755, 0555, "/system/etc/ppp");
 set_perm_recursive(0, 2000, 0755, 0644, "/system/vendor");
 set_perm(0, 0, 0644, "/system/vendor/etc/audio_effects.conf");
