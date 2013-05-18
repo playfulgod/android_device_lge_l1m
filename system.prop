@@ -4,7 +4,6 @@
 
 wlan.chip.vendor=brcm
 wlan.chip.version=bcm4334
-wifi.supplicant_scan_interval=90
 wifi.interface=wlan0
 wlan.driver.status=ok
 
@@ -59,7 +58,7 @@ persist.timed.enable=true
 # System props for audio
 persist.audio.fluence.mode=endfire
 persist.audio.vr.enable=false
-persist.audio.handset.mic=digital
+persist.audio.handset.mic=analog
 
 # System prop to select audio resampler quality
 af.resampler.quality=255

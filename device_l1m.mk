@@ -55,10 +55,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     hostapd
 
-## Bluetooth
-PRODUCT_PACKAGES += \
-	hci_qcomm_init
-
 # Audio
 PRODUCT_PACKAGES += \
     alsa.msm8960 \

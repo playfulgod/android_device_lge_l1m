@@ -150,6 +150,29 @@ lib/libwvprovision.so
 lib/libxml.so
 lib/hw/lights.msm8960.so
 
+# Qualcomm common libs
+lib/libdiag.so
+lib/libdsi_netctrl.so
+lib/libdsutils.so
+lib/libidl.so
+lib/libqdi.so
+lib/libqdp.so
+lib/libqmi.so
+lib/libqmi_cci.so
+lib/libqmi_common_so.so
+lib/libqmi_csi.so
+lib/libqmi_encdec.so
+lib/libqmiservices.so
+
+# Radio
+lib/libnetmgr.so
+lib/libqc-opt.so
+lib/libril-qcril-hook-oem.so
+lib/libril.so
+lib/libqcci_legacy.so
+lib/libqmi_client_qmux.so
+lib/libqmi_csvt_srvc.so
+
 # GPS
 lib/hw/gps.default.so
 lib/libgps.so
@@ -160,28 +183,6 @@ lib/libloc_eng.so
 lib/libloc_ext.so
 
 # Sound firmware
-etc/snd_soc_msm/DL_REC
-etc/snd_soc_msm/DL_REC_2x
-etc/snd_soc_msm/FM_A2DP_REC
-etc/snd_soc_msm/FM_A2DP_REC_2x
-etc/snd_soc_msm/FM_Digital_Radio
-etc/snd_soc_msm/FM_Digital_Radio_2x
-etc/snd_soc_msm/FM_REC
-etc/snd_soc_msm/FM_REC_2x
-etc/snd_soc_msm/HiFi
-etc/snd_soc_msm/HiFi_2x
-etc/snd_soc_msm/HiFi_Low_Power
-etc/snd_soc_msm/HiFi_Low_Power_2x
-etc/snd_soc_msm/HiFi_Rec
-etc/snd_soc_msm/HiFi_Rec_2x
-etc/snd_soc_msm/snd_soc_msm
-etc/snd_soc_msm/snd_soc_msm_2x
-etc/snd_soc_msm/UL_DL_REC
-etc/snd_soc_msm/UL_DL_REC_2x
-etc/snd_soc_msm/Voice_Call
-etc/snd_soc_msm/Voice_Call_2x
-etc/snd_soc_msm/Voice_Call_IP
-etc/snd_soc_msm/Voice_Call_IP_2x
 etc/snd_soc_msm/snd_soc_msm
 etc/snd_soc_msm/snd_soc_msm_2x
 
@@ -218,4 +219,5 @@ etc/firmware/vidcfw.elf
 # Bluetooth
 bin/BCM4334B0_002.001.013.0636.0688.hcd
 lib/liblgftmitem.so
+bin/brcm_patchram_plus
 
