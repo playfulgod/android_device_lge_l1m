@@ -15,6 +15,18 @@ com.qc.hardware=true
 # RIL properties
 rild.libpath=/system/lib/libril-qc-qmi-1.so
 ro.telephony.ril_class=LGEQualcommUiccRIL
+keyguard.no_require_sim=true
+rild.libargs=-d /dev/smd0
+ro.baseband.arch=msm
+ro.telephony.ril.v3=subscriptionFromSource,skipCdmaSubcription
+ro.telephony.default_network=8
+ro.ril.def.preferred.network=8
+telephony.lteOnCdmaDevice=1
+telephony.lte.cdma.device=1
+ro.cdma.subscribe_on_ruim_ready=true
+persist.radio.no_wait_for_card=1
+
+ro.config.svlte1x=true
 
 #mtp settings
 persist.sys.usb.config=mtp,adb
@@ -100,7 +112,6 @@ wifi.lge.sleeppolicy=0
 wifi.lge.offdelay=true
 persist.data_netmgrd_mtu=1428
 persist.service.ecc.hiddenmenu=
-ro.com.google.gmsversion=4.0_r7
 ro.setupwizard.mode=DISABLED
 ro.livewallpaper.map=DISABLED
 ro.com.google.apphider=off
@@ -111,3 +122,33 @@ dhcp.dlna.using=false
 ro.config.vc_call_vol_steps=8
 ro.config.vc_call_vol_default=6
 ro.cdma.voicemail.number=mine
+
+# system property for Bluetooth Handsfree Profile Wide Band Speech
+#
+ro.qualcomm.bluetooth.hfp.wbs=true
+#
+#system prop for Bluetooth hci transport
+ro.qualcomm.bt.hci_transport=smd
+#
+# system prop for requesting Master role in incoming Bluetooth connection.
+#
+#ro.bluetooth.request.master=true
+ro.bluetooth.request.master=false
+#
+# system prop for Bluetooth Auto connect for remote initated connections
+#
+ro.bluetooth.remote.autoconnect=true
+# system property for Bluetooth discoverability time out in seconds
+# 0: Always discoverable
+#debug.bt.discoverable_time=0
+
+#system prop for switching gps driver to qmi
+persist.gps.qmienabled=true
+
+# System property for cabl
+ro.qualcomm.cabl=2
+
+#
+# System prop for sending transmit power request to RIL during WiFi hotspot on/off
+#
+ro.ril.transmitpower=true

@@ -14,10 +14,24 @@
 # limitations under the License.
 #
 
+# loki
+PRODUCT_PACKAGES += \
+    loki.sh \
+    loki_flash \
+    loki_patch \
+    valid_bootloaders
+
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
+
+# Ramdisk
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/prebuilt/root/init.l1m.rc:root/init.l1m.rc \
+	$(LOCAL_PATH)/prebuilt/root/init.grand.rc:root/init.grand.rc \
+	$(LOCAL_PATH)/prebuilt/root/ueventd.l1m.rc:root/ueventd.l1m.rc \
+	$(LOCAL_PATH)/prebuilt/root/ueventd.grand.rc:root/ueventd.grand.rc
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -91,14 +105,14 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/init.qcom.wifi.sh:/system/etc/init.qcom.wifi.sh
 
 # 2nd-init
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/2nd-init/2nd-init:/system/xbin/2nd-init \
-    $(LOCAL_PATH)/2nd-init/cm10.sh:/system/xbin/cm10.sh \
-    $(LOCAL_PATH)/2nd-init/cm10.tar:/system/xbin/cm10.tar \
-    $(LOCAL_PATH)/2nd-init/mksh2:/system/xbin/mksh2 \
-    $(LOCAL_PATH)/2nd-init/recovery.sh:/system/xbin/recovery.sh \
-    $(LOCAL_PATH)/2nd-init/recovery.tar:/system/xbin/recovery.tar \
-    $(LOCAL_PATH)/2nd-init/taskset:/system/xbin/taskset
+#PRODUCT_COPY_FILES += \
+#    $(LOCAL_PATH)/2nd-init/2nd-init:/system/xbin/2nd-init \
+#    $(LOCAL_PATH)/2nd-init/cm10.sh:/system/xbin/cm10.sh \
+#    $(LOCAL_PATH)/2nd-init/cm10.tar:/system/xbin/cm10.tar \
+#    $(LOCAL_PATH)/2nd-init/mksh2:/system/xbin/mksh2 \
+#    $(LOCAL_PATH)/2nd-init/recovery.sh:/system/xbin/recovery.sh \
+#    $(LOCAL_PATH)/2nd-init/recovery.tar:/system/xbin/recovery.tar \
+#    $(LOCAL_PATH)/2nd-init/taskset:/system/xbin/taskset
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -119,7 +133,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.compass.xml \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml
-
 # APN
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/prebuilt/etc/apns-conf.xml:system/etc/apns-conf.xml

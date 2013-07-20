@@ -43,7 +43,7 @@ BOARD_KERNEL_PAGE_SIZE := 2048
 BOARD_KERNEL_CMDLINE := console=ttyHSl1m,115200,n8 androidboot.hardware=l1m lpj=67668
 BOARD_FORCE_RAMDISK_ADDRESS := 0x810cc000
 
-TARGET_PREBUILT_KERNEL := device/lge/l0/kernel
+TARGET_PREBUILT_KERNEL := device/lge/l1m/kernel
 LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 
 TARGET_KERNEL_CONFIG := l1m-perf_defconfig
@@ -135,6 +135,9 @@ TARGET_BOOTANIMATION_PRELOAD := true
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun0/file
 
+# Loki
+TARGET_RELEASETOOLS_EXTENSIONS := external/djrbliss/loki
+ 
 # Releasetools
-TARGET_PROVIDES_RELEASETOOLS := true
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/lge/l1m/releasetools/l1m_ota_from_target_files
+#TARGET_PROVIDES_RELEASETOOLS := true
+#TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/lge/l1m/releasetools/l1m_ota_from_target_files

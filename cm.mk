@@ -24,7 +24,11 @@ CDMA_CARRIER_NUMERIC := 311660
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.cdma.home.operator.alpha=$(CDMA_CARRIER_ALPHA) \
-    ro.cdma.home.operator.numeric=$(CDMA_CARRIER_NUMERIC)
+    ro.cdma.home.operator.numeric=$(CDMA_CARRIER_NUMERIC) \
+    gsm.sim.operator.alpha=$(CDMA_CARRIER_ALPHA) \
+    gsm.sim.operator.numeric=$(CDMA_CARRIER_NUMERIC) \
+    gsm.operator.alpha=$(CDMA_CARRIER_ALPHA) \
+    gsm.operator.numeric=$(CDMA_CARRIER_NUMERIC)
 
 # Set build fingerprint / ID / Product Name ect.
 PRODUCT_BUILD_PROP_OVERRIDES += \
