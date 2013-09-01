@@ -95,7 +95,8 @@ TARGET_PROVIDES_LIBLIGHTS := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
-#BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/l1m/bluetooth
 #TARGET_CUSTOM_BLUEDROID := ../../../device/lge/l1m/bluetooth/bluetooth.c
 
 # Wifi
@@ -136,7 +137,7 @@ TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun0/file
 
 # Loki
-TARGET_RELEASETOOLS_EXTENSIONS := external/djrbliss/loki
+TARGET_RELEASETOOLS_EXTENSIONS := device/lge/msm8960-common/loki
  
 # Releasetools
 #TARGET_PROVIDES_RELEASETOOLS := true
