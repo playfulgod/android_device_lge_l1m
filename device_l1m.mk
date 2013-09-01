@@ -14,13 +14,6 @@
 # limitations under the License.
 #
 
-# loki
-PRODUCT_PACKAGES += \
-    loki.sh \
-    loki_flash \
-    loki_patch \
-    valid_bootloaders
-
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
@@ -104,6 +97,14 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/init.qcom.sdio.sh:/system/etc/init.qcom.sdio.sh \
     $(LOCAL_PATH)/prebuilt/etc/init.qcom.wifi.sh:/system/etc/init.qcom.wifi.sh
 
+# loki
+PRODUCT_PACKAGES += \
+    loki.sh \
+    loki_flash \
+    loki_patch \
+    loki_bootloaders \
+	unlocked_bootloaders
+
 # 2nd-init
 #PRODUCT_COPY_FILES += \
 #    $(LOCAL_PATH)/2nd-init/2nd-init:/system/xbin/2nd-init \
@@ -133,6 +134,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.compass.xml \
     frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml
+
 # APN
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/prebuilt/etc/apns-conf.xml:system/etc/apns-conf.xml
@@ -174,10 +176,32 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/vendor/lib/libWVStreamControlAPI_L1.so:system/vendor/lib/libWVStreamControlAPI_L1.so \
     $(LOCAL_PATH)/prebuilt/etc/permissions/com.google.widevine.software.drm.xml:system/etc/permissions/com.google.widevine.software.drm.xml
 
-# Sound firmware
+# OMX
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/etc/firmware/wcd9310/wcd9310_anc.bin:/system/etc/firmware/wcd9310/wcd9310_anc.bin \
-    $(LOCAL_PATH)/prebuilt/etc/firmware/wcd9310/wcd9310_mbhc.bin:/system/etc/firmware/wcd9310/wcd9310_mbhc.bin
+	$(LOCAL_PATH)/prebuilt/lib/libdivxdrmdecrypt.so:system/lib/libdivxdrmdecrypt.so \
+	$(LOCAL_PATH)/prebuilt/lib/libmm-adspsvc.so:system/lib/libmm-adspsvc.so \
+	$(LOCAL_PATH)/prebuilt/lib/libmmosal.so:system/lib/libmmosal.so \
+	$(LOCAL_PATH)/prebuilt/lib/libmmparser_divxdrmlib.so:system/lib/libmmparser_divxdrmlib.so \
+	$(LOCAL_PATH)/prebuilt/lib/libmmparser.so:system/lib/libmmparser.so \
+	$(LOCAL_PATH)/prebuilt/lib/libOmxAacDec.so:system/lib/libOmxAacDec.so \
+	$(LOCAL_PATH)/prebuilt/lib/libOmxAacEnc.so:system/lib/libOmxAacEnc.so \
+	$(LOCAL_PATH)/prebuilt/lib/libOmxAdpcmDec.so:system/lib/libOmxAdpcmDec.so \
+	$(LOCAL_PATH)/prebuilt/lib/libOmxAmrDec.so:system/lib/libOmxAmrDec.so \
+	$(LOCAL_PATH)/prebuilt/lib/libOmxAmrEnc.so:system/lib/libOmxAmrEnc.so \
+	$(LOCAL_PATH)/prebuilt/lib/libOmxAmrRtpDec.so:system/lib/libOmxAmrRtpDec.so \
+	$(LOCAL_PATH)/prebuilt/lib/libOmxAmrwbDec.so:system/lib/libOmxAmrwbDec.so \
+	$(LOCAL_PATH)/prebuilt/lib/libOmxH264Dec.so:system/lib/libOmxH264Dec.so \
+	$(LOCAL_PATH)/prebuilt/lib/libOmxMp3Dec.so:system/lib/libOmxMp3Dec.so \
+	$(LOCAL_PATH)/prebuilt/lib/libOmxMpeg4Dec.so:system/lib/libOmxMpeg4Dec.so \
+	$(LOCAL_PATH)/prebuilt/lib/libOmxOn2Dec.so:system/lib/libOmxOn2Dec.so \
+	$(LOCAL_PATH)/prebuilt/lib/libOmxrv9Dec.so:system/lib/libOmxrv9Dec.so \
+	$(LOCAL_PATH)/prebuilt/lib/libOmxWmaDec.so:system/lib/libOmxWmaDec.so \
+	$(LOCAL_PATH)/prebuilt/lib/libOmxWmvDec.so:system/lib/libOmxWmvDec.so
+
+# Sound firmware
+#PRODUCT_COPY_FILES += \
+#    $(LOCAL_PATH)/prebuilt/etc/firmware/wcd9310/wcd9310_anc.bin:/system/etc/firmware/wcd9310/wcd9310_anc.bin \
+#    $(LOCAL_PATH)/prebuilt/etc/firmware/wcd9310/wcd9310_mbhc.bin:/system/etc/firmware/wcd9310/wcd9310_mbhc.bin
 
 # Sound configs
 PRODUCT_COPY_FILES += \

@@ -19,8 +19,8 @@ keyguard.no_require_sim=true
 rild.libargs=-d /dev/smd0
 ro.baseband.arch=msm
 ro.telephony.ril.v3=subscriptionFromSource,skipCdmaSubcription
-ro.telephony.default_network=8
-ro.ril.def.preferred.network=8
+ro.telephony.default_network=7
+ro.ril.def.preferred.network=7
 telephony.lteOnCdmaDevice=1
 telephony.lte.cdma.device=1
 ro.cdma.subscribe_on_ruim_ready=true
@@ -152,3 +152,10 @@ ro.qualcomm.cabl=2
 # System prop for sending transmit power request to RIL during WiFi hotspot on/off
 #
 ro.ril.transmitpower=true
+
+dalvik.vm.heapstartsize=8m
+dalvik.vm.heapgrowthlimit=96m
+dalvik.vm.heapsize=256m
+dalvik.vm.heaptargetutilization=0.75
+dalvik.vm.heapminfree=512k
+dalvik.vm.heapmaxfree=8m

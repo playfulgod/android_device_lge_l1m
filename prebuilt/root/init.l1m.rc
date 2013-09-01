@@ -1,66 +1,22 @@
 import /init.grand.rc
+#import /init.lge.rc
 
 on init
+#	mkdir /mnt/external_sd 0000 system system # FEATURE_SDCARD_ENCRYPTION
+# Create filesystems if necessary.
+    exec /sbin/setup_fs \
+        /dev/block/platform/msm_sdcc.1/by-name/userdata \
+        /dev/block/platform/msm_sdcc.1/by-name/cache \
+        /dev/block/platform/msm_sdcc.1/by-name/drm \
+        /dev/block/platform/msm_sdcc.1/by-name/mpt \
+        /dev/block/platform/msm_sdcc.1/by-name/sns \
+        /dev/block/platform/msm_sdcc.1/by-name/fotapkg \
+        no_reboot
+	start bootlogo
 
-# Create cgroup mount point for cpu accounting
-    mkdir /acct
-    mount cgroup none /acct cpuacct
-    mkdir /acct/uid
+on boot-pause
+    exec system/bin/battery_charging
 
-# Backwards Compat - XXX: Going away in G*
-    symlink /mnt/sdcard /sdcard
-
-    mkdir /system
-    mkdir /data 0771 system system
-    mkdir /cache 0770 system cache
-    mkdir /config 0500 root root
-
-    # Directory for putting things only root should see.
-    mkdir /mnt/secure 0700 root root
-
-    # Directory for staging bindmounts
-    mkdir /mnt/secure/staging 0700 root root
-
-    # Directory-target for where the secure container
-    # imagefile directory will be bind-mounted
-    mkdir /mnt/secure/asec  0700 root root
-
-    # Secure container public mount points.
-    mkdir /mnt/asec  0700 root system
-    mount tmpfs tmpfs /mnt/asec mode=0755,gid=1000
-
-    # Filesystem image public mount points.
-    mkdir /mnt/obb 0700 root system
-    mount tmpfs tmpfs /mnt/obb mode=0755,gid=1000
-
-    write /proc/sys/kernel/panic_on_oops 1
-    write /proc/sys/kernel/hung_task_timeout_secs 0
-    write /proc/cpu/alignment 4
-    write /proc/sys/kernel/sched_latency_ns 10000000
-    write /proc/sys/kernel/sched_wakeup_granularity_ns 2000000
-    write /proc/sys/kernel/sched_compat_yield 1
-    write /proc/sys/kernel/sched_child_runs_first 0
-    write /proc/sys/kernel/randomize_va_space 2
-
-# Create cgroup mount points for process groups
-     mkdir /dev/cpuctl
-     mount cgroup none /dev/cpuctl cpu
-     chown system system /dev/cpuctl
-     chmod 0660 /dev/cpuctl
-     chown system system /dev/cpuctl/tasks
-     chmod 0660 /dev/cpuctl/tasks
-     write /dev/cpuctl/cpu.shares 1024
-
-    mkdir /dev/cpuctl/fg_boost
-    chown system system /dev/cpuctl/fg_boost/tasks
-    chmod 0777 /dev/cpuctl/fg_boost/tasks
-    write /dev/cpuctl/fg_boost/cpu.shares 1024
-
-    mkdir /dev/cpuctl/bg_non_interactive
-    chown system system /dev/cpuctl/bg_non_interactive/tasks
-    chmod 0777 /dev/cpuctl/bg_non_interactive/tasks
-    # 5.0 %
-    write /dev/cpuctl/bg_non_interactive/cpu.shares 52
 
 on post-fs-data
     setprop ro.crypto.keyfile.userdata /dev/block/platform/msm_sdcc.1/by-name/encrypt
@@ -99,14 +55,43 @@ on boot
 # Charging on/off sysfs
     chown system system /sys/devices/platform/msm_ssbi.0/pm8921-core/pm8921-charger/at_charge
 
-service wpa_supplicant /system/bin/wpa_supplicant \
-    -Dnl80211 -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
-# we will start as root and wpa_supplicant will switch to user wifi
-# after setting up the capabilities required for WEXT
-# user wifi
-# group wifi inet keystore
-    class main
-    socket wpa_wlan0 dgram 660 wifi wifi
+# LGE_CHANGE_S, 20110725, real-wifi@lge.com by Beaver, To enable ftm for WLAN
+# CONFIG_LGE_WLAN_PATCH
+
+#
+# CONFIG_LGE_WLAN_QCOM_PATCH
+service ftm_ptt /system/bin/ftm_ptt -d
+    user root
+    group radio system 
     disabled
-    oneshot
+#[LGE_UPDATE_S] DMS_SYSTEM dms-fota@lge.com 2012/02/18
+on emmc-fs
+    mkdir /fotapkg 0771 system system
+    wait /dev/block/platform/msm_sdcc.1/by-name/fotapkg
+    exec /system/bin/e2fsck -p /dev/block/platform/msm_sdcc.1/by-name/fotapkg
+    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/fotapkg /fotapkg nosuid nodev barrier=1 noauto_da_alloc
+#[LGE_UPDATE_E] DMS_SYSTEM dms-fota@lge.com 2012/02/18
+
+on property:hw.ftm_ptt_start=1
+    start ftm_ptt
+
+on property:hw.ftm_ptt_start=0
+    stop ftm_ptt
+# LGE_CHANGE_E, 20110725, real-wifi@lge.com
+
+service bootlogo /sbin/bootlogo_l1m
+	class main
+	user root
+	group root
+	disabled
+	oneshot
+
+on property:ro.build.type=user
+    write /sys/module/subsystem_restart/parameters/restart_level 3
+    write /sys/module/lge_handle_panic/parameters/hreset_enable 1
+# FEATURE_SDCARD_ENCRYPTION
+# on property:ssbd.enable=1
+#	start ssbd
+# on property:ssbd.enable=0
+#	stop ssbd
 
