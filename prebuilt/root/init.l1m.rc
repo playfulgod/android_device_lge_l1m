@@ -1,5 +1,4 @@
 import /init.grand.rc
-#import /init.lge.rc
 
 on init
 #	mkdir /mnt/external_sd 0000 system system # FEATURE_SDCARD_ENCRYPTION

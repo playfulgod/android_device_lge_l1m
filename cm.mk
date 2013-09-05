@@ -3,6 +3,7 @@
 
 # Release name
 PRODUCT_RELEASE_NAME := l1m
+CM_BUILDTYPE := PlayfulGod
 
 TARGET_BOOTANIMATION_NAME := vertical-540x960
 

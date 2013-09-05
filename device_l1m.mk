@@ -23,8 +23,10 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/prebuilt/root/init.l1m.rc:root/init.l1m.rc \
 	$(LOCAL_PATH)/prebuilt/root/init.grand.rc:root/init.grand.rc \
-	$(LOCAL_PATH)/prebuilt/root/ueventd.l1m.rc:root/ueventd.l1m.rc \
-	$(LOCAL_PATH)/prebuilt/root/ueventd.grand.rc:root/ueventd.grand.rc
+	$(LOCAL_PATH)/prebuilt/root/init.bt.l1m.rc:root/init.bt.l1m.rc \
+	$(LOCAL_PATH)/prebuilt/root/init.lge.usb.rc:root/init.lge.usb.rc \
+	$(LOCAL_PATH)/prebuilt/root/init.lge.usb.sh:root/init.lge.usb.sh \
+	$(LOCAL_PATH)/prebuilt/root/ueventd.l1m.rc:root/ueventd.l1m.rc
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -35,6 +37,7 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libOmxAacEnc \
     libOmxAmrEnc \
+	libOmxWmaDec \
     libstagefrighthw
 
 # USB
@@ -106,14 +109,14 @@ PRODUCT_PACKAGES += \
 	unlocked_bootloaders
 
 # 2nd-init
-#PRODUCT_COPY_FILES += \
-#    $(LOCAL_PATH)/2nd-init/2nd-init:/system/xbin/2nd-init \
-#    $(LOCAL_PATH)/2nd-init/cm10.sh:/system/xbin/cm10.sh \
-#    $(LOCAL_PATH)/2nd-init/cm10.tar:/system/xbin/cm10.tar \
-#    $(LOCAL_PATH)/2nd-init/mksh2:/system/xbin/mksh2 \
-#    $(LOCAL_PATH)/2nd-init/recovery.sh:/system/xbin/recovery.sh \
-#    $(LOCAL_PATH)/2nd-init/recovery.tar:/system/xbin/recovery.tar \
-#    $(LOCAL_PATH)/2nd-init/taskset:/system/xbin/taskset
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/2nd-init/2nd-init:/system/xbin/2nd-init \
+    $(LOCAL_PATH)/2nd-init/cm10.sh:/system/xbin/cm10.sh \
+    $(LOCAL_PATH)/2nd-init/cm10.tar:/system/xbin/cm10.tar \
+    $(LOCAL_PATH)/2nd-init/mksh2:/system/xbin/mksh2 \
+    $(LOCAL_PATH)/2nd-init/recovery.sh:/system/xbin/recovery.sh \
+    $(LOCAL_PATH)/2nd-init/recovery.tar:/system/xbin/recovery.tar \
+    $(LOCAL_PATH)/2nd-init/taskset:/system/xbin/taskset
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -133,7 +136,8 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.compass.xml \
-    frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml
+    frameworks/native/data/etc/android.hardware.telephony.cdma.xml:system/etc/permissions/android.hardware.telephony.cdma.xml \
+    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
 
 # APN
 PRODUCT_COPY_FILES += \
@@ -198,10 +202,10 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/prebuilt/lib/libOmxWmaDec.so:system/lib/libOmxWmaDec.so \
 	$(LOCAL_PATH)/prebuilt/lib/libOmxWmvDec.so:system/lib/libOmxWmvDec.so
 
-# Sound firmware
-#PRODUCT_COPY_FILES += \
-#    $(LOCAL_PATH)/prebuilt/etc/firmware/wcd9310/wcd9310_anc.bin:/system/etc/firmware/wcd9310/wcd9310_anc.bin \
-#    $(LOCAL_PATH)/prebuilt/etc/firmware/wcd9310/wcd9310_mbhc.bin:/system/etc/firmware/wcd9310/wcd9310_mbhc.bin
+# Netflix Hack
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/prebuilt/NetflixHackPersist/addon.d/90-netflixhack.sh:system/addon.d/90-netflixhack.sh \
+	$(LOCAL_PATH)/prebuilt/NetflixHackPersist/etc/init.d/98netflix:system/etc/init.d/98netflix
 
 # Sound configs
 PRODUCT_COPY_FILES += \

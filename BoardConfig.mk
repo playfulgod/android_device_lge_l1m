@@ -40,8 +40,8 @@ TARGET_NO_BOOTLOADER := true
 # Kernel
 BOARD_KERNEL_BASE := 0x81250000
 BOARD_KERNEL_PAGE_SIZE := 2048
-BOARD_KERNEL_CMDLINE := console=ttyHSl1m,115200,n8 androidboot.hardware=l1m lpj=67668
-BOARD_FORCE_RAMDISK_ADDRESS := 0x810cc000
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=l1m lpj=67668
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x810cc000
 
 TARGET_PREBUILT_KERNEL := device/lge/l1m/kernel
 LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
@@ -57,9 +57,19 @@ TARGET_PRODUCT := l1m_MPCS_US
 # Architecture
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
+TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_CPU_VARIANT := krait
 TARGET_CPU_SMP := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
+
+TARGET_QCOM_DISPLAY_VARIANT := legacy
+BOARD_EGL_NEEDS_LEGACY_FB := true
+
+# Linaro Optimization
+TARGET_USE_O3 := true
+TARGET_USE_GRAPHITE := true
+TARGET_USE_LINARO_STRING_ROUTINES := true
 
 # Krait optimizations
 TARGET_USE_KRAIT_BIONIC_OPTIMIZATION := true
@@ -121,8 +131,8 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_VOLD_MAX_PARTITIONS := 97
 
 # Recovery
-BOARD_CUSTOM_GRAPHICS:= ../../../device/lge/l1m/recovery/graphics.c
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/lge/l1m/recovery/recovery_keys.c
+TARGET_RECOVERY_FSTAB = device/lge/l1m/recovery.fstab
+RECOVERY_FSTAB_VERSION = 1
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 BOARD_HAS_NO_SELECT_BUTTON := true
 
@@ -137,8 +147,8 @@ TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/devices/platform/msm_hsusb/gadget/lun0/file
 
 # Loki
-TARGET_RELEASETOOLS_EXTENSIONS := device/lge/msm8960-common/loki
+#TARGET_RELEASETOOLS_EXTENSIONS := device/lge/msm8960-common/loki
  
 # Releasetools
-#TARGET_PROVIDES_RELEASETOOLS := true
-#TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/lge/l1m/releasetools/l1m_ota_from_target_files
+TARGET_PROVIDES_RELEASETOOLS := true
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/lge/l1m/releasetools/l1m_ota_from_target_files
