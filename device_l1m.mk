@@ -247,3 +247,6 @@ $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 ### TEMP DIRTY HACK FOR LOGCAT ###
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/prebuilt/bin/logcat:system/bin/logcat
+
+$(call inherit-product, hardware/qcom/msm8960/msm8960.mk)
+
