@@ -118,7 +118,6 @@ TARGET_RECOVERY_FSTAB := device/lge/l1m/recovery/fstab.l1m
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
 BOARD_HAS_NO_SELECT_BUTTON := true
-#RECOVERY_NAME := CWMR built by PlayfulGod
 
 # Webkit
 ENABLE_WEBGL := true
