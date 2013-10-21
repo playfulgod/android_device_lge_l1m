@@ -1,0 +1,232 @@
+on init
+    mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
+    mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
+    mkdir /data/misc/bluetooth 0770 system system
+
+on boot
+    mkdir /data/misc/bluetooth 0770 bluetooth bluetooth
+    mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
+    mkdir /data/misc/bluetooth 0770 system system
+#    exec system/bin/btnvtool -O	# LGE_CHANGE [blue.park@lge.com] <It is only used by eng mode>
+    chown bluetooth bluetooth /sys/module/bluetooth_power/parameters/power
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill1/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill1/state    
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill2/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill2/state
+    chown bluetooth bluetooth /proc/bluetooth/sleep/proto
+    chown system system /sys/module/sco/parameters/disable_esco
+    chown bluetooth bluetooth /sys/module/hci_smd/parameters/hcismd_set
+    chmod 0660 /sys/module/bluetooth_power/parameters/power
+# LGE: LGBT_COMMON_LGTEST_DUTMODE, [20111116, sh.shin@lge.com] Enable BT DUT mode
+# LGBT_COMMON_BUGFIX_PERMISSION_MODIFY_FOR_CTS
+# LGE: LGBT_COMMON_LGTEST_DUTMODE, [20120320, sh.shin@lge.com] Change premission from 644 to 622
+# LGBT_COMMON_BUGFIX_PERMISSIONFORCTS_AND_DUTMODE, [20120326, younghun.nam@lge.com] Change premission from 622 to 660  
+    chmod 0660 /sys/module/hci_smd/parameters/hcismd_set  
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill1/state
+    chmod 0660 /sys/class/rfkill/rfkill2/state
+    chmod 0660 /proc/bluetooth/sleep/proto
+    chown bluetooth bluetooth /dev/ttyHS0
+    chmod 0660 /dev/ttyHS0
+    chown bluetooth bluetooth /sys/devices/platform/msm_serial_hs.0/clock
+    chmod 0660 /sys/devices/platform/msm_serial_hs.0/clock
+
+    #Create QMUX deamon socket area
+    mkdir /dev/socket/qmux_radio 0770 radio radio
+    chmod 2770 /dev/socket/qmux_radio
+    mkdir /dev/socket/qmux_audio 0770 media audio
+    chmod 2770 /dev/socket/qmux_audio
+    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
+    chmod 2770 /dev/socket/qmux_bluetooth
+    mkdir /dev/socket/qmux_gps 0770 gps gps
+    chmod 2770 /dev/socket/qmux_gps
+
+    # Allow QMUX daemon to assign port open wait time
+    chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
+
+    setprop wifi.interface wlan0
+
+#BEGIN: 0019636 chanha.park@lge.com 2012-06-11
+#ADD: 0019636: [F200][BT] BTL-A Porting
+# Need 4 properties for bluetooth on
+    setprop service.brcm.bt.btld 0
+    setprop service.brcm.bt.activation 0
+    setprop service.brcm.bt.srv_active 0
+    setprop service.brcm.bt.hcid_active 0  
+#   setprop ro.bluetooth.PANenable 1    
+#END: 0019636 chanha.park@lge.com 2012-06-11
+# LGE_BT_S: [ADD] chanha.park '12-08-26 - [F200][BT] Support BT WBS...
+    setprop service.brcm.bt.wbs 1	
+# LGE_BT_E
+
+
+    #port-bridge
+    chmod 0660 /dev/smd0
+    chown system system /dev/smd0
+
+    #BT DUN port-bridge
+    chmod 0660 /dev/smd7
+    chown bluetooth bluetooth /dev/smd7
+
+
+on property:bluetooth.isEnabled=true
+    start btwlancoex
+    start amp_load
+    write /sys/class/bluetooth/hci0/idle_timeout 7000
+
+on property:bluetooth.isEnabled=false
+    start amp_unload
+
+service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
+    class core
+    user root
+    oneshot
+
+service qcom-c_main-sh /system/bin/sh /init.qcom.class_main.sh
+    class main
+    user root
+    oneshot
+
+
+# LGE: LGBT_COMMON_FUNCTION_ADDR_LGFTM, [20110129, sh.shin@lge.com], read MAC address from LGFTM 
+#BEGIN: 0019632 chanha.park@lge.com 2012-05-31
+#ADD: 0019632: [F200][BT] Bluetooth board bring-up 
+#Modified that hciattach
+on boot
+	write /sys/class/rfkill/rfkill0/state 0
+	write /sys/class/rfkill/rfkill1/state 0
+	write /sys/class/rfkill/rfkill2/state 0
+
+#service hciattach /system/bin/sh /system/etc/init.qcom.bt.sh
+#service hciattach /system/bin/brcm_patchram_plus -d -enable_hci --no2bytes --enable_lpm \
+#	--tosleep 50000 --baudrate 4000000 --use_baudrate_for_download --patchram /system/bin/BCM4334B0_002.001.013.0079.0082.hcd /dev/ttyHS0
+#service hciattach /system/bin/brcm_patchram_plus --enable_hci --scopcm=0,4,0,0,0,0,0,3,3,0 --no2bytes \
+#    --baudrate 4000000 --patchram /system/bin/BCM4334B0_002.001.013.0271.0333.hcd  /dev/ttyHS0
+#    class late_start
+#    user bluetooth
+#    group qcom_oncrpc bluetooth net_bt_admin system
+#    disabled
+#    oneshot
+#END: 0019632 chanha.park@lge.com 2012-05-31
+
+#BEGIN: 0019636 chanha.park@lge.com 2012-06-11
+#ADD: 0019636: [F200][BT] BTL-A Porting 
+service btld /system/bin/logwrapper /system/bin/btld -lpm 1 -hb 4000000
+    user root
+    group bluetooth net_bt_admin
+    disabled
+    oneshot 
+
+service bluetoothd /system/bin/logwrapper /system/bin/bluetoothd -d -n
+    class main
+    socket bluetooth stream 660 bluetooth bluetooth
+    socket dbus_bluetooth stream 660 bluetooth bluetooth
+# init.rc does not yet support applying capabilities, so run as root and
+# let bluetoothd drop uid to bluetooth with the right linux capabilities
+    group bluetooth net_bt_admin misc
+    disabled  
+
+# Bluetooth PAN Enable
+# dhcp service for pan-nap/pan-u     
+service dhcpcd_brcm-pan /system/bin/dhcpcd -ABKL
+	class main
+	disabled
+	oneshot
+
+service iprenew_brcm-pan /system/bin/dhcpcd -n
+	class main
+	disabled
+	oneshot    
+#END: 0019636 chanha.park@lge.com 2012-06-11
+
+
+
+# +s LGBT_COMMON_FUNCTION_DUN_DISABLE
+#service bt-dun /system/bin/dun-server /dev/smd7 /dev/rfcomm0
+#    class late_start
+#    disabled
+#    oneshot
+
+#service dund /system/bin/sdptool add --channel=1 DUN
+#    class late_start
+#    user bluetooth
+#    group bluetooth net_bt_admin
+#    disabled
+#   oneshot
+# +e LGBT_COMMON_FUNCTION_DUN_DISABLE
+
+# +s LGBT_COMMON_FUNCTION_SAP_DISABLE
+#service bt-sap /system/bin/sapd 15
+#    class late_start
+#    disabled
+#    oneshot
+
+#service sapd /system/bin/sdptool add --channel=15 SAP
+#    class late_start
+#    user bluetooth
+#    group bluetooth net_bt_admin
+#    disabled
+#    oneshot
+# +e LGBT_COMMON_FUNCTION_SAP_DISABLE
+
+
+# QMUX must be in multiple groups to support external process connections
+service qmuxd /system/bin/qmuxd
+    class core
+    user radio
+    group radio audio bluetooth gps
+#    disabled
+
+service btwlancoex /system/bin/sh /system/etc/init.qcom.coex.sh
+    class late_start
+    user bluetooth
+    group bluetooth net_bt_admin inet net_admin net_raw
+    disabled
+    oneshot
+
+service qcom-sh /system/bin/sh /init.qcom.sh
+    class late_start
+    user root
+    oneshot
+
+service qcom-post-boot /system/bin/sh /system/etc/init.qcom.post_boot.sh
+    class late_start
+    user root
+    disabled
+    oneshot
+
+service hcidump /system/bin/sh /system/etc/hcidump.sh
+    user bluetooth
+    group bluetooth system net_bt_admin net_admin
+    disabled
+    oneshot
+
+# LGE_S: LGBT_COMMON_LGTEST_DUTMODE, [sh.shin@lge.com 20111116] Enable BT DUT mode
+service hciattach_dut /system/bin/sh /system/etc/init.lge_dut.bt.sh
+    user bluetooth
+    group qcom_oncrpc bluetooth net_bt_admin
+    disabled
+    oneshot
+
+service dbus /system/bin/dbus-daemon --system --nofork
+    class main
+    socket dbus stream 660 bluetooth bluetooth
+    user bluetooth
+    group bluetooth net_bt_admin
+
+service bluetoothd /system/bin/bluetoothd -n
+    class main
+    socket bluetooth stream 660 bluetooth bluetooth
+    socket dbus_bluetooth stream 660 bluetooth bluetooth
+    # init.rc does not yet support applying capabilities, so run as root and
+    # let bluetoothd drop uid to bluetooth with the right linux capabilities
+    group bluetooth net_bt_admin misc
+    disabled
+
+service dbus /system/bin/dbus-daemon --system --nofork
+    class main
+    socket dbus stream 660 bluetooth bluetooth
+    user bluetooth
+    group bluetooth net_bt_admin

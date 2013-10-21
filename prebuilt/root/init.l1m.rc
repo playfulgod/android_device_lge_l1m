@@ -1,8 +1,8 @@
 import /init.grand.rc
-#import /init.lge.rc
 
 on init
 #	mkdir /mnt/external_sd 0000 system system # FEATURE_SDCARD_ENCRYPTION
+
 # Create filesystems if necessary.
     exec /sbin/setup_fs \
         /dev/block/platform/msm_sdcc.1/by-name/userdata \
@@ -10,7 +10,7 @@ on init
         /dev/block/platform/msm_sdcc.1/by-name/drm \
         /dev/block/platform/msm_sdcc.1/by-name/mpt \
         /dev/block/platform/msm_sdcc.1/by-name/sns \
-        /dev/block/platform/msm_sdcc.1/by-name/fotapkg \
+        #/dev/block/platform/msm_sdcc.1/by-name/fotapkg \
         no_reboot
 	start bootlogo
 
@@ -23,6 +23,7 @@ on post-fs-data
 #    chown media_rw media_rw /mnt/external_sd # FEATURE_SDCARD_ENCRYPTION
 #    symlink /data/media/external_sd /mnt/external_sd # FEATURE_SDCARD_ENCRYPTION
 #    chmod 0755 /system/bin/ssbd
+	symlink /sdcard/external_sd /external_sd
 # service ssbd /system/bin/ssbd # FEATURE_SDCARD_ENCRYPTION
 #    class main
 #    disabled
@@ -64,34 +65,8 @@ service ftm_ptt /system/bin/ftm_ptt -d
     user root
     group radio system 
     disabled
-#[LGE_UPDATE_S] DMS_SYSTEM dms-fota@lge.com 2012/02/18
-on emmc-fs
-    mkdir /fotapkg 0771 system system
-    wait /dev/block/platform/msm_sdcc.1/by-name/fotapkg
-    exec /system/bin/e2fsck -p /dev/block/platform/msm_sdcc.1/by-name/fotapkg
-    mount ext4 /dev/block/platform/msm_sdcc.1/by-name/fotapkg /fotapkg nosuid nodev barrier=1 noauto_da_alloc
-#[LGE_UPDATE_E] DMS_SYSTEM dms-fota@lge.com 2012/02/18
-
-on property:hw.ftm_ptt_start=1
-    start ftm_ptt
-
-on property:hw.ftm_ptt_start=0
-    stop ftm_ptt
-# LGE_CHANGE_E, 20110725, real-wifi@lge.com
-
-service bootlogo /sbin/bootlogo_l1m
-	class main
-	user root
-	group root
-	disabled
-	oneshot
 
 on property:ro.build.type=user
     write /sys/module/subsystem_restart/parameters/restart_level 3
     write /sys/module/lge_handle_panic/parameters/hreset_enable 1
-# FEATURE_SDCARD_ENCRYPTION
-# on property:ssbd.enable=1
-#	start ssbd
-# on property:ssbd.enable=0
-#	stop ssbd
 

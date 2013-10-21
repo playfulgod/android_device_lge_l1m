@@ -1,19 +1,3 @@
-#
-# Copyright (C) 2011 The CyanogenMod Project
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
@@ -21,10 +5,12 @@ DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/prebuilt/root/init.l1m.rc:root/init.l1m.rc \
-	$(LOCAL_PATH)/prebuilt/root/init.grand.rc:root/init.grand.rc \
-	$(LOCAL_PATH)/prebuilt/root/ueventd.l1m.rc:root/ueventd.l1m.rc \
-	$(LOCAL_PATH)/prebuilt/root/ueventd.grand.rc:root/ueventd.grand.rc
+    $(LOCAL_PATH)/prebuilt/ramdisk/init.l1m.rc:root/init.l1m.rc \
+    $(LOCAL_PATH)/prebuilt/ramdisk/init.grand.rc:root/init.grand.rc \
+   	$(LOCAL_PATH)/prebuilt/ramdisk/init.target.rc:root/ueventd.l1m.rc \
+   	$(LOCAL_PATH)/prebuilt/ramdisk/init.qcom.sh:root/init.qcom.sh
+#    $(LOCAL_PATH)/prebuilt/root/init.lge.cmm.usb.sh:root/init.lge.cmm.usb.sh \
+#    $(LOCAL_PATH)/prebuilt/root/init.target.rc:root/init.target.rc \
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -35,6 +21,7 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libOmxAacEnc \
     libOmxAmrEnc \
+	libOmxWmaDec \
     libstagefrighthw
 
 # USB
@@ -83,6 +70,15 @@ PRODUCT_PACKAGES += \
     libQcomUI \
     libtilerenderer
 
+PRODUCT_PACKAGES += \
+	hci_qcomm_init
+
+PRODUCT_PACKAGES += \
+	power.msm8960
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.qualcomm.bt.hci_transport=smd
+
 # Qualcomm scripts
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/init.lge_dut.bt.sh:/system/etc/init.lge_dut.bt.sh \
@@ -97,23 +93,18 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/init.qcom.sdio.sh:/system/etc/init.qcom.sdio.sh \
     $(LOCAL_PATH)/prebuilt/etc/init.qcom.wifi.sh:/system/etc/init.qcom.wifi.sh
 
-# loki
 PRODUCT_PACKAGES += \
-    loki.sh \
-    loki_flash \
-    loki_patch \
-    loki_bootloaders \
-	unlocked_bootloaders
+	bdAddrLoader
 
 # 2nd-init
-#PRODUCT_COPY_FILES += \
-#    $(LOCAL_PATH)/2nd-init/2nd-init:/system/xbin/2nd-init \
-#    $(LOCAL_PATH)/2nd-init/cm10.sh:/system/xbin/cm10.sh \
-#    $(LOCAL_PATH)/2nd-init/cm10.tar:/system/xbin/cm10.tar \
-#    $(LOCAL_PATH)/2nd-init/mksh2:/system/xbin/mksh2 \
-#    $(LOCAL_PATH)/2nd-init/recovery.sh:/system/xbin/recovery.sh \
-#    $(LOCAL_PATH)/2nd-init/recovery.tar:/system/xbin/recovery.tar \
-#    $(LOCAL_PATH)/2nd-init/taskset:/system/xbin/taskset
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/2nd-init/2nd-init:/system/xbin/2nd-init \
+    $(LOCAL_PATH)/2nd-init/cm10.sh:/system/xbin/cm10.sh \
+    $(LOCAL_PATH)/2nd-init/cm10.tar:/system/xbin/cm10.tar \
+    $(LOCAL_PATH)/2nd-init/mksh2:/system/xbin/mksh2 \
+    $(LOCAL_PATH)/2nd-init/recovery.sh:/system/xbin/recovery.sh \
+    $(LOCAL_PATH)/2nd-init/recovery.tar:/system/xbin/recovery.tar \
+    $(LOCAL_PATH)/2nd-init/taskset:/system/xbin/taskset
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -198,15 +189,20 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/prebuilt/lib/libOmxWmaDec.so:system/lib/libOmxWmaDec.so \
 	$(LOCAL_PATH)/prebuilt/lib/libOmxWmvDec.so:system/lib/libOmxWmvDec.so
 
-# Sound firmware
-#PRODUCT_COPY_FILES += \
-#    $(LOCAL_PATH)/prebuilt/etc/firmware/wcd9310/wcd9310_anc.bin:/system/etc/firmware/wcd9310/wcd9310_anc.bin \
-#    $(LOCAL_PATH)/prebuilt/etc/firmware/wcd9310/wcd9310_mbhc.bin:/system/etc/firmware/wcd9310/wcd9310_mbhc.bin
+# Netflix Hack
+PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/prebuilt/NetflixHackPersist/addon.d/90-netflixhack.sh:system/addon.d/90-netflixhack.sh \
+	$(LOCAL_PATH)/prebuilt/NetflixHackPersist/etc/init.d/98netflix:system/etc/init.d/98netflix
 
 # Sound configs
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/audio_effects.conf:system/etc/audio_effects.conf \
     $(LOCAL_PATH)/prebuilt/etc/audio_policy.conf:system/etc/audio_policy.conf
+
+# Charger
+PRODUCT_PACKAGES += \
+    charger_res_images \
+    charger
 
 # Camera
 PRODUCT_PACKAGES += \

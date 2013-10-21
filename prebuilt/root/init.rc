@@ -182,7 +182,7 @@ on post-fs-data
 
     # For security reasons, /data/local/tmp should always be empty.
     # Do not place files or directories in /data/local/tmp
-    mkdir /data/local/tmp 0777 shell shell
+    mkdir /data/local/tmp 0771 shell shell
     mkdir /data/data 0771 system system
     mkdir /data/app-private 0771 system system
     mkdir /data/app-asec 0700 root root
@@ -330,6 +330,7 @@ on boot
     class_start core
     class_start main
 
+on nonencrypted
     class_start late_start
 
 on charger
@@ -379,6 +380,14 @@ service adbd /sbin/adbd
 # adbd on at boot in emulator
 on property:ro.kernel.qemu=1
     start adbd
+    
+service logcat /system/bin/logcat -f /data/logcat.log
+    class main
+    oneshot
+
+service dmesgdump /system/bin/dmesgdump
+    class main
+    oneshot
 
 service servicemanager /system/bin/servicemanager
     class core
