@@ -27,10 +27,11 @@ TARGET_NO_BOOTLOADER := true
 #TARGET_SPECIFIC_HEADER_PATH := device/lge/l1m/include
 
 # Kernel
-BOARD_KERNEL_BASE := 0x81250000
+BOARD_KERNEL_BASE := 0x8125000
 BOARD_KERNEL_PAGE_SIZE := 2048
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=l1m lpj=67668
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset --ramdisk_offset 0xffe7c000
+#Loki not liking anything set for this
+#BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000
 
 TARGET_PREBUILT_KERNEL := device/lge/l1m/kernel
 LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
