@@ -127,9 +127,6 @@ TARGET_FORCE_CPU_UPLOAD := true
 # Preload bootanimation
 TARGET_BOOTANIMATION_PRELOAD := true
 
-# Loki
-#TARGET_RELEASETOOLS_EXTENSIONS := device/lge/msm8960-common/loki
- 
 # Releasetools
 TARGET_PROVIDES_RELEASETOOLS := true
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/lge/l1m/releasetools/l1m_ota_from_target_files
