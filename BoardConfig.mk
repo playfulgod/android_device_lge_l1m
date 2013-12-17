@@ -24,12 +24,12 @@ TARGET_KRAIT_BIONIC_PLDSIZE := 64
 TARGET_NO_BOOTLOADER := true
 
 # Include path
-#TARGET_SPECIFIC_HEADER_PATH := device/lge/l1m/include
+TARGET_SPECIFIC_HEADER_PATH := device/lge/l1m/include
 
 # Kernel
 BOARD_KERNEL_BASE := 0x8125000
 BOARD_KERNEL_PAGE_SIZE := 2048
-BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=l1m lpj=67668
+BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.hardware=l1m lpj=67668 androidboot.selinux=permissive
 #Loki not liking anything set for this
 #BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000
 
@@ -37,7 +37,9 @@ TARGET_PREBUILT_KERNEL := device/lge/l1m/kernel
 LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
 
 TARGET_KERNEL_CONFIG := l1m-perf_defconfig
-TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
+#TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.4.3
+
+BOARD_USES_SECURE_SERVICES := true
 
 # Platform
 TARGET_BOARD_PLATFORM := msm8960
@@ -46,7 +48,7 @@ TARGET_BOOTLOADER_BOARD_NAME := l1m
 TARGET_BOOTLOADER_NAME := l1m
 TARGET_PRODUCT := l1m_MPCS_US
 
-TARGET_QCOM_DISPLAY_VARIANT := caf
+TARGET_QCOM_DISPLAY_VARIANT := legacy
 BOARD_EGL_NEEDS_LEGACY_FB := true
 
 # Linaro Optimization
@@ -74,9 +76,6 @@ TARGET_USES_C2D_COMPOSITION := true
 TARGET_USES_ION := true
 BOARD_EGL_CFG := device/lge/l1m/prebuilt/lib/egl/egl.cfg
 
-# PMEM compatibility
-BOARD_NEEDS_MEMORYHEAPPMEM := true
-
 # ICS proprietary blob compatibility
 COMMON_GLOBAL_CFLAGS += -DICS_CAMERA_BLOB
 
@@ -89,9 +88,8 @@ TARGET_PROVIDES_LIBLIGHTS := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
-#BOARD_HAVE_BLUETOOTH_BCM := true
+BOARD_HAVE_BLUETOOTH_BCM := true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/lge/l1m/bluetooth
-#TARGET_CUSTOM_BLUEDROID := ../../../device/lge/l1m/bluetooth/bluetooth.c
 
 # Wifi
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
@@ -128,6 +126,28 @@ TARGET_FORCE_CPU_UPLOAD := true
 # Preload bootanimation
 TARGET_BOOTANIMATION_PRELOAD := true
 
+BOARD_HARDWARE_CLASS := device/lge/l1m/cmhw/
+
+BOARD_SEPOLICY_UNION := \
+       app.te \
+       bluetooth.te \
+       device.te \
+       domain.te \
+       drmserver.te \
+       file.te \
+       file_contexts \
+       hci_init.te \
+       init_shell.te \
+       keystore.te \
+       mediaserver.te \
+       kickstart.te \
+       nfc.te \
+       rild.te \
+       surfaceflinger.te \
+       system.te \
+       ueventd.te \
+       wpa.te
+
 # Releasetools
-TARGET_PROVIDES_RELEASETOOLS := true
-TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/lge/l1m/releasetools/l1m_ota_from_target_files
+#TARGET_PROVIDES_RELEASETOOLS := true
+#TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := ./device/lge/l1m/releasetools/l1m_ota_from_target_files

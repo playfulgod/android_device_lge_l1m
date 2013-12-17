@@ -18,9 +18,12 @@
 /dev/block/platform/msm_sdcc.1/by-name/tz           /tz             emmc    defaults                                                        defaults
 /dev/block/platform/msm_sdcc.1/by-name/rpm          /rpm            emmc    defaults                                                        defaults
 /dev/block/platform/msm_sdcc.1/by-name/aboot        /aboot          emmc    defaults                                                        defaults
-/dev/null											/sdcard   		datamedia  defaults														defaults
-/sys/devices/platform/msm_sdcc.2/mmc_host/mmc2		/storage/sdcard1 		auto	default		voldmanaged=sdcard:auto
-/sys/devices/platform/msm_hsusb_host/usb			/storage/usbdisk0		auto	default		voldmanaged=sda:auto
+
+/sys/devices/platform/msm_sdcc.2/mmc_host/mmc2		/storage/sdcard1 	auto	default		voldmanaged=sdcard:auto
+# USB
+/devices/platform/msm_hsusb_host/usb			    /storage/usbdisk0	auto	defaults	voldmanaged=sda:auto
+
+
 
 
 

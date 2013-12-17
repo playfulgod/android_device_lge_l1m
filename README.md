@@ -1,13 +1,5 @@
 **Work in progress for the LG Spirit 4G.
 
-**Thanks to:
-
-    hroark13 for posting his device repo.
-
-	BobZhome for his time & work on this project.
-
-
-
 HOW-TO BUILD:
 =============
 
@@ -34,13 +26,13 @@ Now initialized the repository and pull the source (with my repos attached):
 
     $ cd ~/android/system/
     
-    $ repo init -u git://github.com/CyanogenMod/android.git -b jellybean
+    $ repo init -u git://github.com/CyanogenMod/android.git -b cm-11.0
     
     $ repo sync
 
 Note: Depending on your connection, this might take awhile.
 
-Getting my repos for the LG Motion (l1m)
+Getting my repos for the LG Spirit (l1m)
 	
 	$ cd ~/android/system/device/
 
@@ -48,7 +40,7 @@ Getting my repos for the LG Motion (l1m)
 
 	$ cd lge
 
-	$ git clone https://github.com/playfulgod/android_device_lge_l1m.git -b jellybean l1m
+	$ git clone https://github.com/playfulgod/android_device_lge_l1m.git -b cm-11.0 l1m
 
 
 Getting kernel source
@@ -81,13 +73,13 @@ or place a copy of a stock ROM zip or previous CM build in device/lge/l1m
 
 	$ ./unzip-files.sh name-of-zip.zip
 
-Building CM10
+Building CM11
 -------------
 Once thats done you can start compiling.
 
 Follow the aosp instructions on setting up the build environment. - http://source.android.com/source/download.html
 
-When the environment is setup, we need to grab a copy of Term.apk. This is necessary to build CM10.
+When the environment is setup, we need to grab a copy of Term.apk. This is necessary to build CM11.
 
     $ cd ~/android/system/vendor/cm
 
@@ -102,7 +94,7 @@ To build for the LG Spirit 4G:
     $ . build/envsetup.sh && brunch l1m
 
 
-Installing CM10
+Installing CM11
 ---------------
 If the build was successful, you can now take the update zip found in out/target/product/l1m/ and flash using a custom recovery. Make sure to grab the latest Gapps to complete the experience.
 

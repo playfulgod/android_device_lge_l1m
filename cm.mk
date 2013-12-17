@@ -2,7 +2,7 @@
 #$(call inherit-product, vendor/cm/config/cdma.mk)
 
 # Release name
-PRODUCT_RELEASE_NAME := l1m
+PRODUCT_RELEASE_NAME := Spirit
 CM_BUILDTYPE := PlayfulGod
 
 TARGET_BOOTANIMATION_NAME := vertical-540x960
@@ -32,6 +32,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     gsm.operator.numeric=$(CDMA_CARRIER_NUMERIC)
 
 # Set build fingerprint / ID / Product Name ect.
-PRODUCT_BUILD_PROP_OVERRIDES += \
-    BUILD_FINGERPRINT="lge/l1m_MPCS_US/l1m:4.0.4/IMM76L/MS87010a.1357114310:user/release-keys" \
-    PRIVATE_BUILD_DESC="l1m_MPCS_US-user 4.0.4 IMM76L MS87010a.1357114310 release-keys"
+#PRODUCT_BUILD_PROP_OVERRIDES += \
+#    BUILD_FINGERPRINT="lge/l1m_MPCS_US/l1m:4.0.4/IMM76L/MS87010a.1357114310:user/release-keys" \
+#    PRIVATE_BUILD_DESC="l1m_MPCS_US-user 4.0.4 IMM76L MS87010a.1357114310 release-keys"

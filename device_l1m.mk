@@ -8,13 +8,8 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/prebuilt/root/init.l1m.rc:root/init.l1m.rc \
 	$(LOCAL_PATH)/prebuilt/root/init.grand.rc:root/init.grand.rc \
 	$(LOCAL_PATH)/prebuilt/root/init.bt.l1m.rc:root/init.bt.l1m.rc \
-	$(LOCAL_PATH)/prebuilt/root/init.lge.usb.rc:root/init.lge.usb.rc \
-	$(LOCAL_PATH)/prebuilt/root/init.lge.usb.sh:root/init.lge.usb.sh \
-	$(LOCAL_PATH)/prebuilt/root/ueventd.l1m.rc:root/ueventd.l1m.rc
-
-# Recovery
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/recovery/fstab.l1m:recovery/root/fstab.l1m
+	$(LOCAL_PATH)/prebuilt/root/ueventd.l1m.rc:root/ueventd.l1m.rc \
+	$(LOCAL_PATH)/fstab.l1m:root/fstab.l1m
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -55,12 +50,12 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    alsa.msm8960 \
-    audio.a2dp.default \
-    audio_policy.msm8960 \
-    audio.primary.msm8960 \
-    libalsa-intf \
-    libaudioutils
+	audio_policy.msm8960 \
+	audio.primary.msm8960 \
+	audio.a2dp.default \
+	audio.usb.default \
+	audio.r_submix.default \
+	libaudio-resampler
 
 # Graphics
 PRODUCT_PACKAGES += \
@@ -88,23 +83,14 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/init.qcom.sdio.sh:/system/etc/init.qcom.sdio.sh \
     $(LOCAL_PATH)/prebuilt/etc/init.qcom.wifi.sh:/system/etc/init.qcom.wifi.sh
 
-# loki
-PRODUCT_PACKAGES += \
-    loki.sh \
-    loki_flash \
-    loki_patch \
-    loki_bootloaders \
-	unlocked_bootloaders
-
-# 2nd-init
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/2nd-init/2nd-init:/system/xbin/2nd-init \
-    $(LOCAL_PATH)/2nd-init/cm10.sh:/system/xbin/cm10.sh \
-    $(LOCAL_PATH)/2nd-init/cm10.tar:/system/xbin/cm10.tar \
-    $(LOCAL_PATH)/2nd-init/mksh2:/system/xbin/mksh2 \
-    $(LOCAL_PATH)/2nd-init/recovery.sh:/system/xbin/recovery.sh \
-    $(LOCAL_PATH)/2nd-init/recovery.tar:/system/xbin/recovery.tar \
-    $(LOCAL_PATH)/2nd-init/taskset:/system/xbin/taskset
+PRODUCT_PROPERTY_OVERRIDES += \
+	persist.audio.handset.mic.type=digital \
+	persist.audio.dualmic.config=endfire \
+	persist.audio.fluence.voicecall=true \
+	persist.audio.handset.mic=dmic \
+	persist.audio.fluence.mode=endfire \
+	persist.audio.lowlatency.rec=false \
+	af.resampler.quality=4
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -138,8 +124,8 @@ PRODUCT_COPY_FILES += device/common/gps/gps.conf_US:system/etc/gps.conf
 
 # Media config
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/etc/media_codecs.xml:system/etc/media_codecs.xml \
-    $(LOCAL_PATH)/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml
+    $(LOCAL_PATH)/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/media_profiles.xml:system/etc/media_profiles.xml
 
 # vold config
 PRODUCT_COPY_FILES += \
@@ -192,15 +178,10 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/prebuilt/lib/libOmxWmaDec.so:system/lib/libOmxWmaDec.so \
 	$(LOCAL_PATH)/prebuilt/lib/libOmxWmvDec.so:system/lib/libOmxWmvDec.so
 
-# Netflix Hack
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/prebuilt/NetflixHackPersist/addon.d/90-netflixhack.sh:system/addon.d/90-netflixhack.sh \
-	$(LOCAL_PATH)/prebuilt/NetflixHackPersist/etc/init.d/98netflix:system/etc/init.d/98netflix
-
 # Sound configs
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/etc/audio_effects.conf:system/etc/audio_effects.conf \
-    $(LOCAL_PATH)/prebuilt/etc/audio_policy.conf:system/etc/audio_policy.conf
+    $(LOCAL_PATH)/audio_effects.conf:system/etc/audio_effects.conf \
+    $(LOCAL_PATH)/audio_policy.conf:system/etc/audio_policy.conf
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -237,10 +218,3 @@ $(call inherit-product-if-exists, vendor/lge/l1m/l1m-vendor.mk)
 
 # call dalvik heap config
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
-
-### TEMP DIRTY HACK FOR LOGCAT ###
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/prebuilt/bin/logcat:system/bin/logcat
-
-$(call inherit-product, hardware/qcom/msm8960/msm8960.mk)
-
